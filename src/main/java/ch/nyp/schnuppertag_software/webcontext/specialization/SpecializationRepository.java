@@ -3,7 +3,6 @@ package ch.nyp.schnuppertag_software.webcontext.specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 /**
  * 
  * @author Alexandra Girsberger
