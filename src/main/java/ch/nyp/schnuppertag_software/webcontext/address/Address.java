@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.webcontext;
+package ch.nyp.schnuppertag_software.webcontext.address;
 
 public class Address {
 	private Long id;

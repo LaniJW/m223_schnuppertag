@@ -1,4 +1,6 @@
-package ch.nyp.schnuppertag_software.webcontext;
+package ch.nyp.schnuppertag_software.webcontext.trainee;
+
+import ch.nyp.schnuppertag_software.webcontext.address.Address;
 
 public class Trainee {
 	private Long id;

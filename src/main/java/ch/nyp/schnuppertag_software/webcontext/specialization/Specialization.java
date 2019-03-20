@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.webcontext;
+package ch.nyp.schnuppertag_software.webcontext.specialization;
 
 public class Specialization {
 	private Long id;
