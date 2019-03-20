@@ -29,12 +29,10 @@ public class Specialization {
 	@Column(name = "description")
 	private String description;
 	
-	// Constructor - empty
 	public Specialization() {
 		super();
 	}
 	
-	// Constructor - With id
 	public Specialization(Long id, String title, String description) {
 		super();
 		this.id = id;
@@ -42,7 +40,6 @@ public class Specialization {
 		this.description = description;
 	}
 
-	// Constructor - Without id
 	public Specialization(String title, String description) {
 		super();
 		this.title = title;

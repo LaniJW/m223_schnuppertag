@@ -41,12 +41,10 @@ public class Address {
 	@Column(name = "country")
 	private String country;
 	
-	// Constructor - empty
 	public Address() {
 		super();
 	}
 
-	// Constructor - With id
 	public Address(Long id, String name, String streetName, String streetNumber, String zipCode, String city,
 			String country) {
 		super();
@@ -59,7 +57,6 @@ public class Address {
 		this.country = country;
 	}
 	
-	// Constructor - Without id
 	public Address(String name, String streetName, String streetNumber, String zipCode, String city, String country) {
 		super();
 		this.name = name;

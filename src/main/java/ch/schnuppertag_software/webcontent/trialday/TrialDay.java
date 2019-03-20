@@ -40,12 +40,10 @@ public class TrialDay {
 	@JoinColumn(name = "trainer_fk")
 	private List<Trainer> trainers;
 
-	// Constructor - empty
 	public TrialDay() {
 		super();
 	}
 
-	// Constructor - With id
 	public TrialDay(Long id, Specialization specialization, List<Trainee> trainees, List<Trainer> trainers) {
 		super();
 		this.id = id;
@@ -54,7 +52,6 @@ public class TrialDay {
 		this.trainers = trainers;
 	}
 
-	// Constructor - Without id
 	public TrialDay(Specialization specialization, List<Trainee> trainees, List<Trainer> trainers) {
 		super();
 		this.specialization = specialization;
