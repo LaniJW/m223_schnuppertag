@@ -51,6 +51,9 @@ public class Trainer {
 		this.email = email;
 	}
 
+	public Trainer() {
+	}
+
 	public Long getId() {
 		return id;
 	}

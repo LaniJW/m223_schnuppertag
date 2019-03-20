@@ -53,6 +53,9 @@ public class Trainee {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
+	
+	public Trainee() {
+	}
 
 	public Long getId() {
 		return id;
