@@ -22,6 +22,11 @@ public class Specialization {
 	@Column(name = "description")
 	private String description;
 	
+	// Constructor - empty
+	public Specialization() {
+		super();
+	}
+	
 	// Constructor - With id
 	public Specialization(Long id, String title, String description) {
 		super();

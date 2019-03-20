@@ -33,6 +33,11 @@ public class Address {
 	
 	@Column(name = "country")
 	private String country;
+	
+	// Constructor - empty
+	public Address() {
+		super();
+	}
 
 	// Constructor - With id
 	public Address(Long id, String name, String streetName, String streetNumber, String zipCode, String city,
