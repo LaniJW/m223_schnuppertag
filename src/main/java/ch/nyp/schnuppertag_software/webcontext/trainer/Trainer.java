@@ -12,6 +12,13 @@ import javax.persistence.Table;
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
 import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
 
+/**
+ * 
+ * @author Lani Wagner
+ * @since 2019-03-20
+ *
+ */
+
 @Entity
 @Table(name = "tbl_trainer")
 public class Trainer {
