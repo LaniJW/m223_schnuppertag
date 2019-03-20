@@ -20,12 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/address")
 public class AddressController {
-	/**
-	 * This method returns the requested course
-	 * 
-	 * @param id
-	 * @return ResponseEnitity with the address that was requested
-	 */
 
 	AddressService addressService;
 	
@@ -33,14 +27,23 @@ public class AddressController {
 	public AddressController(AddressService addressService) {
 		this.addressService = addressService;
 	}
+	
+	/**
+	 * This method returns the requested address
+	 * 
+	 * @param id
+	 * @return ResponseEnitity with the address that was requested
+	 */
+
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<Address> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
 		
 		if(address.isPresent()) {
 			return new ResponseEntity<>(address.get(), HttpStatus.OK);	
-		}else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 }

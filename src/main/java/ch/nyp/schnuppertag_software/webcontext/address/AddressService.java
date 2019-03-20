@@ -5,6 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 
+ * @author Alexandra Girsberger
+ * 2since 2019-03-20
+ *
+ */
 @Service
 public class AddressService {
 

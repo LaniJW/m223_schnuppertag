@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.webcontext.address;
+package ch.nyp.schnuppertag_software.webcontext.specialization;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
  * @since 2019-03-20
  *
  */
+
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Long>{
+public interface SpecializationRepository extends JpaRepository<Specialization, Long> {
+
 
 }
