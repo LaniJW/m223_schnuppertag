@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.nyp.schnuppertag_software.webcontext.address.Address;
-import ch.nyp.schnuppertag_software.webcontext.address.AddressService;
-
 /**
  * 
  * @author Alexandra Girsberger
  * @since 2019-03-20
  *
  */
+
 @RestController
 @RequestMapping("/specialization")
 public class SpecializationController {
@@ -35,9 +33,8 @@ public class SpecializationController {
 	 * This method returns the requested specialization
 	 * 
 	 * @param id
-	 * @return ResponseEnitity with the specialization that was requested
+	 * @return ResponseEntity with the specialization that was requested
 	 */
-
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<Specialization> getById(@PathVariable Long id){
 		Optional<Specialization> specialization = specializationService.getById(id);
@@ -48,7 +45,5 @@ public class SpecializationController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
 	
 }

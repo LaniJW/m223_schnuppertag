@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.webcontext.address;
+package ch.schnuppertag_software.webcontent.trialday;
 
 import java.util.Optional;
 
@@ -19,31 +19,31 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/address")
-public class AddressController {
-
-	AddressService addressService;
+@RequestMapping("/trialday")
+public class TrialDayController {
+	
+TrialDayService trialDayService;
 	
 	@Autowired
-	public AddressController(AddressService addressService) {
-		this.addressService = addressService;
+	public TrialDayController(TrialDayService trialDayService) {
+		this.trialDayService = trialDayService;
 	}
 	
 	/**
-	 * This method returns the requested address
+	 * This method returns the requested trialday
 	 * 
 	 * @param id
-	 * @return ResponseEntity with the address that was requested
+	 * @return ResponseEntity with the trialday that was requested
 	 */
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<Address> getById(@PathVariable Long id){
-		Optional<Address> address = addressService.getById(id);
+	public @ResponseBody ResponseEntity<TrialDay> getById(@PathVariable Long id){
+		Optional<TrialDay> trialDay = trialDayService.getById(id);
 		
-		if(address.isPresent()) {
-			return new ResponseEntity<>(address.get(), HttpStatus.OK);	
+		if(trialDay.isPresent()) {
+			return new ResponseEntity<>(trialDay.get(), HttpStatus.OK);	
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 }
