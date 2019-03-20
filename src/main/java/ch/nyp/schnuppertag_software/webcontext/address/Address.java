@@ -7,6 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Alexandra Girsberger
+ * @since 2019-03-20
+ *
+ */
+
 @Entity 
 @Table(name = "tbl_address")
 public class Address {
