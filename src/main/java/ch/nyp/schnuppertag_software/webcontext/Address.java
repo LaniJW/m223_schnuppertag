@@ -1,6 +1,7 @@
 package ch.nyp.schnuppertag_software.webcontext;
 
 public class Address {
+	private Long id;
 	private String name;
 	private String streetName;
 	private String streetNumber;
