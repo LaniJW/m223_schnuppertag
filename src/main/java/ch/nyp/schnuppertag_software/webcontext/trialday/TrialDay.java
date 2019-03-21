@@ -1,7 +1,6 @@
-package ch.schnuppertag_software.webcontext.trialday;
+package ch.nyp.schnuppertag_software.webcontext.trialday;
 
 import java.util.List;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,7 +30,8 @@ public class TrialDay {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "specialization")
+	@ManyToOne
+	@JoinColumn(name = "specialization_fk")
 	private Specialization specialization;
 	
 	@OneToMany

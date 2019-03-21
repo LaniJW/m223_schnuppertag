@@ -1,4 +1,4 @@
-package ch.schnuppertag_software.webcontext.trialday;
+package ch.nyp.schnuppertag_software.webcontext.trialday;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
