@@ -1,6 +1,7 @@
 package ch.nyp.schnuppertag_software.webcontext.trainer;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

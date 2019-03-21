@@ -1,4 +1,4 @@
-package ch.schnuppertag_software.webcontent.trialday;
+package ch.schnuppertag_software.webcontext.trialday;
 
 import java.util.Optional;
 
