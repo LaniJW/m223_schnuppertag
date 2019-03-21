@@ -7,14 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-03-20
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-03-21
  *
  */
 
@@ -29,12 +31,6 @@ public class AddressController {
 		this.addressService = addressService;
 	}
 	
-	/**
-	 * This method returns the requested address
-	 * 
-	 * @param id
-	 * @return ResponseEntity with the address that was requested
-	 */
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<Address> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
@@ -46,4 +42,10 @@ public class AddressController {
 		}
 	}
 	
+	@PostMapping({"", "/"})
+	public @ResponseBody ResponseEntity<Address> create(@RequestBody Address address) {
+		addressService.save(address);
+		
+		return new ResponseEntity<>(address, HttpStatus.CREATED);
+	}
 }

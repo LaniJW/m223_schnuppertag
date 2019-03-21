@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 
- * @author Alexandra Girsberger
- * 2since 2019-03-20
+ * @author Alexandra Girsberger, Lani Wagner
+ * 2since 2019-03-21
  *
  */
 
@@ -21,9 +21,13 @@ public class AddressService {
 	public AddressService(AddressRepository addressRepository) {
 		this.addressRepository = addressRepository;
 	}
+	
 	public Optional<Address> getById(Long id) {
 		Optional<Address> address = addressRepository.findById(id);
 		return address;
 	}
-	
+
+	public void save(Address address) {
+		addressRepository.save(address);
+	}
 }

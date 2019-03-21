@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-02-20
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-02-21
  *
  */
 
