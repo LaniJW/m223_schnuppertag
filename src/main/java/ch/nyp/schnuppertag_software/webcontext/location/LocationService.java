@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.nyp.schnuppertag_software.webcontext.location.Location;
+
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
@@ -28,5 +30,17 @@ public class LocationService {
 
 	public void save(Location location) {
 		locationRepository.save(location);
+	}
+	
+	public void updateById(Location location, Long id) {
+		Optional<Location> currentLocation = locationRepository.findById(id);
+		if (currentLocation.isPresent()) {
+			location.setId(id);
+			this.save(location);
+		}
+	}
+	
+	public void deleteById(Long id) {
+		locationRepository.deleteById(id);
 	}
 }

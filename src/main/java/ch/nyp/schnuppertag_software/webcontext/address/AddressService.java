@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.nyp.schnuppertag_software.webcontext.address.Address;
+
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
@@ -29,5 +31,17 @@ public class AddressService {
 
 	public void save(Address address) {
 		addressRepository.save(address);
+	}
+	
+	public void updateById(Address address, Long id) {
+		Optional<Address> currentAddress = addressRepository.findById(id);
+		if (currentAddress.isPresent()) {
+			address.setId(id);
+			this.save(address);
+		}
+	}
+	
+	public void deleteById(Long id) {
+		addressRepository.deleteById(id);
 	}
 }

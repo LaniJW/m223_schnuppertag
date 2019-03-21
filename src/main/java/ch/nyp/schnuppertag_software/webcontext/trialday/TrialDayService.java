@@ -31,4 +31,16 @@ public class TrialDayService {
 	public void save(TrialDay trialDay) {
 		trialDayRepository.save(trialDay);
 	}
+	
+	public void updateById(TrialDay trialDay, Long id) {
+		Optional<TrialDay> currentTrialDay = trialDayRepository.findById(id);
+		if (currentTrialDay.isPresent()) {
+			trialDay.setId(id);
+			this.save(trialDay);
+		}
+	}
+	
+	public void deleteById(Long id) {
+		trialDayRepository.deleteById(id);
+	}
 }

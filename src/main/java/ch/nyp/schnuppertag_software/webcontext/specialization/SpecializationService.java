@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
+
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
@@ -29,5 +31,17 @@ public class SpecializationService {
 
 	public void save(Specialization specialization) {
 		specializationRepository.save(specialization);
+	}
+	
+	public void updateById(Specialization specialization, Long id) {
+		Optional<Specialization> currentSpecialization = specializationRepository.findById(id);
+		if (currentSpecialization.isPresent()) {
+			specialization.setId(id);
+			this.save(specialization);
+		}
+	}
+	
+	public void deleteById(Long id) {
+		specializationRepository.deleteById(id);
 	}
 }

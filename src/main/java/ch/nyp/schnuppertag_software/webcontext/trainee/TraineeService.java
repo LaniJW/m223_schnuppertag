@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
+import ch.nyp.schnuppertag_software.webcontext.trainee.Trainee;
 
 /**
  * 
@@ -30,5 +31,17 @@ public class TraineeService {
 	
 	public void save(Trainee trainee) {
 		traineeRepository.save(trainee);
+	}
+	
+	public void updateById(Trainee trainee, Long id) {
+		Optional<Trainee> currentTrainee = traineeRepository.findById(id);
+		if (currentTrainee.isPresent()) {
+			trainee.setId(id);
+			this.save(trainee);
+		}
+	}
+	
+	public void deleteById(Long id) {
+		traineeRepository.deleteById(id);
 	}
 }
