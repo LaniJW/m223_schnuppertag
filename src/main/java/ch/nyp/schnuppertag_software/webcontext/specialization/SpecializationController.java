@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-03-20
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-03-21
  *
  */
 
@@ -31,12 +31,6 @@ public class SpecializationController {
 		this.specializationService = specializationService;
 	}
 	
-	/**
-	 * This method returns the requested specialization
-	 * 
-	 * @param id
-	 * @return ResponseEntity with the specialization that was requested
-	 */
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<Specialization> getById(@PathVariable Long id){
 		Optional<Specialization> specialization = specializationService.getById(id);

@@ -5,10 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
+
 /**
  * 
- * @author Lani Wagner
- * @since 2019-03-20
+ * @author Lani Wagner, Alexandra Girsberger
+ * @since 2019-03-21
  *
  */
 
@@ -20,15 +22,13 @@ public class TraineeService {
 	public TraineeService(TraineeRepository traineeRepository) {
 		this.traineeRepository = traineeRepository;
 	}
-	
-	/**
-	 * This method returns the requested trainee
-	 * 
-	 * @param id
-	 * @return ResponseEnitity with the information that was requested
-	 */
+
 	public Optional<Trainee> getById(Long id) {
 		Optional<Trainee> trainee = traineeRepository.findById(id);
 		return trainee;
+	}
+	
+	public void save(Trainee trainee) {
+		traineeRepository.save(trainee);
 	}
 }

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-03-20
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-03-21
  *
  */
 
@@ -24,5 +24,9 @@ public class LocationService {
 	public Optional<Location> getById(Long id) {
 		Optional<Location> location = locationRepository.findById(id);
 		return location;
+	}
+
+	public void save(Location location) {
+		locationRepository.save(location);
 	}
 }
