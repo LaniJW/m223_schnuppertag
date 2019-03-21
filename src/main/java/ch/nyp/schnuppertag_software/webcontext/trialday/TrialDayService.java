@@ -1,11 +1,10 @@
 package ch.nyp.schnuppertag_software.webcontext.trialday;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
 
 /**
  * 
@@ -42,5 +41,10 @@ public class TrialDayService {
 	
 	public void deleteById(Long id) {
 		trialDayRepository.deleteById(id);
+	}
+	
+	public List<TrialDay> getAll() {
+		List<TrialDay> trialDays = trialDayRepository.findAll();
+		return trialDays;
 	}
 }

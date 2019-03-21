@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trialday;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
 
 /**
  * 
@@ -35,12 +34,6 @@ TrialDayService trialDayService;
 		this.trialDayService = trialDayService;
 	}
 	
-	/**
-	 * This method returns the requested trialday
-	 * 
-	 * @param id
-	 * @return ResponseEntity with the trialday that was requested
-	 */
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrialDay> getById(@PathVariable Long id){
 		Optional<TrialDay> trialDay = trialDayService.getById(id);
@@ -77,5 +70,13 @@ TrialDayService trialDayService;
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<TrialDay>> getAll(){
+		List<TrialDay> trialDays = trialDayService.getAll();
+		
+		return new ResponseEntity<>(trialDays, HttpStatus.OK);	
+	
 	}
 }

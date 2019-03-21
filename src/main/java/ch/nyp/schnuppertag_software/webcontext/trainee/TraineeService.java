@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trainee;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class TraineeService {
 	
 	public void deleteById(Long id) {
 		traineeRepository.deleteById(id);
+	}
+
+	public List<Trainee> getAll() {
+		List<Trainee> trainees = traineeRepository.findAll();
+		return trainees;
 	}
 }

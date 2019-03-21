@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.address;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class AddressService {
 
 	public void save(Address address) {
 		addressRepository.save(address);
+	}
+
+	public List<Address> getAll() {
+		List<Address> addresses = addressRepository.findAll();
+		return addresses;
 	}
 	
 	public void updateById(Address address, Long id) {

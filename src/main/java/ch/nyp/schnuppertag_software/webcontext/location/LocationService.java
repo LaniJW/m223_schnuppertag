@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.location;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,9 @@ public class LocationService {
 	
 	public void deleteById(Long id) {
 		locationRepository.deleteById(id);
+	}
+	public List<Location> getAll() {
+		List<Location> locations = locationRepository.findAll();
+		return locations;
 	}
 }

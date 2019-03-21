@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trainer;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class TrainerService {
 	
 	public void deleteById(Long id) {
 		trainerRepository.deleteById(id);
+	}
+
+	public List<Trainer> getAll() {
+		List<Trainer> trainers = trainerRepository.findAll();
+		return trainers;
 	}
 }

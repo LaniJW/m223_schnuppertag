@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trainer;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,12 @@ public class TrainerController {
 		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
 	}
 	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Trainer>> getAll(){
+		List<Trainer> trainers = trainerService.getAll();
+		
+		return new ResponseEntity<>(trainers, HttpStatus.OK);	
+	
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<Trainer> deleteById(@PathVariable Long id) {
 		Optional<Trainer> trainer = trainerService.getById(id);
@@ -69,6 +76,8 @@ public class TrainerController {
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
 	}
 	
 }

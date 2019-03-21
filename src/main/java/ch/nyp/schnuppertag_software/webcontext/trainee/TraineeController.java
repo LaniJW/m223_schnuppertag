@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trainee;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,13 @@ public class TraineeController {
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Trainee>> getAll(){
+		List<Trainee> trainees = traineeService.getAll();
+		
+		return new ResponseEntity<>(trainees, HttpStatus.OK);	
+	
 	}
 }

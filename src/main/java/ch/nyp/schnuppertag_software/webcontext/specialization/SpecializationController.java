@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.specialization;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,13 @@ public class SpecializationController {
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Specialization>> getAll(){
+		List<Specialization> specializations = specializationService.getAll();
+		
+		return new ResponseEntity<>(specializations, HttpStatus.OK);	
+	
 	}
 }
