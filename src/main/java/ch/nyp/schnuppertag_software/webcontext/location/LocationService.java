@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.location;
+package ch.nyp.schnuppertag_software.webcontext.location;
 
 import java.util.Optional;
 

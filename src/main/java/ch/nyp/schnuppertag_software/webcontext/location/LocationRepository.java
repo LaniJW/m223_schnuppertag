@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.location;
+package ch.nyp.schnuppertag_software.webcontext.location;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
