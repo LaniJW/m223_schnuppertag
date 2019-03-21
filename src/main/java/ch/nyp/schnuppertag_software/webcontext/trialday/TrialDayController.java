@@ -23,7 +23,7 @@ import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
  */
 
 @RestController
-@RequestMapping("/trialday")
+@RequestMapping("/trialdays")
 public class TrialDayController {
 	
 TrialDayService trialDayService;

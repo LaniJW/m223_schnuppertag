@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/specialization")
+@RequestMapping("/specializations")
 public class SpecializationController {
 
 	SpecializationService specializationService;

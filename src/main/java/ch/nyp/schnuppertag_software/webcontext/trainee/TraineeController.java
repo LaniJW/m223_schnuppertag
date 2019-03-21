@@ -23,7 +23,7 @@ import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
  */
 
 @RestController
-@RequestMapping("/trainee")
+@RequestMapping("/trainees")
 public class TraineeController {
 	TraineeService traineeService;
 	

@@ -23,7 +23,7 @@ import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
  */
 
 @RestController
-@RequestMapping("/trainer")
+@RequestMapping("/trainers")
 public class TrainerController {
 	TrainerService trainerService;
 	
@@ -50,6 +50,5 @@ public class TrainerController {
 		
 		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
 	}
-	
 	
 }
