@@ -26,4 +26,8 @@ public class SpecializationService {
 		Optional<Specialization> specialization = specializationRepository.findById(id);
 		return specialization;
 	}
+
+	public void save(Specialization specialization) {
+		specializationRepository.save(specialization);
+	}
 }

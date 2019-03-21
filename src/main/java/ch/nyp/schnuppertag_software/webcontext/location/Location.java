@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
-import ch.schnuppertag_software.webcontext.trialday.TrialDay;
+import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
 
 /**
  * 
@@ -31,11 +31,11 @@ public class Location {
 	@Column(name = "id")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = Address.class)
 	@JoinColumn(name = "address_fk")
 	private Address address;
 	
-	@OneToMany
+	@OneToMany(targetEntity = TrialDay.class)
 	@JoinColumn(name = "trialday_fk")
 	private List<TrialDay> trialDays;
 
