@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trainer;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
-
 /**
  * 
  * @author Lani Wagner, Alexandra Girsberger
@@ -23,7 +22,7 @@ import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
  */
 
 @RestController
-@RequestMapping("/trainer")
+@RequestMapping("/trainers")
 public class TrainerController {
 	TrainerService trainerService;
 	
@@ -51,5 +50,12 @@ public class TrainerController {
 		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
 	}
 	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Trainer>> getAll(){
+		List<Trainer> trainers = trainerService.getAll();
+		
+		return new ResponseEntity<>(trainers, HttpStatus.OK);	
+	
+	}
 	
 }

@@ -1,11 +1,10 @@
 package ch.nyp.schnuppertag_software.webcontext.trainer;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
 
 /**
  * 
@@ -30,5 +29,10 @@ public class TrainerService {
 	
 	public void save(Trainer trainer) {
 		trainerRepository.save(trainer);
+	}
+
+	public List<Trainer> getAll() {
+		List<Trainer> trainers = trainerRepository.findAll();
+		return trainers;
 	}
 }

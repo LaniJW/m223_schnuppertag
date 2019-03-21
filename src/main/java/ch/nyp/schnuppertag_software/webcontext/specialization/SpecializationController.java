@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.specialization;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/specialization")
+@RequestMapping("/specializations")
 public class SpecializationController {
 
 	SpecializationService specializationService;
@@ -47,5 +48,13 @@ public class SpecializationController {
 		specializationService.save(specialization);
 		
 		return new ResponseEntity<>(specialization, HttpStatus.CREATED);
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Specialization>> getAll(){
+		List<Specialization> specializations = specializationService.getAll();
+		
+		return new ResponseEntity<>(specializations, HttpStatus.OK);	
+	
 	}
 }

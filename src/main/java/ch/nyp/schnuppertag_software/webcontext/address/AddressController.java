@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.address;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/addresses")
 public class AddressController {
 
 	AddressService addressService;
@@ -47,5 +48,13 @@ public class AddressController {
 		addressService.save(address);
 		
 		return new ResponseEntity<>(address, HttpStatus.CREATED);
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Address>> getAll(){
+		List<Address> addresses = addressService.getAll();
+		
+		return new ResponseEntity<>(addresses, HttpStatus.OK);	
+	
 	}
 }
