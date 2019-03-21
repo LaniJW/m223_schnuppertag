@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
-import ch.schnuppertag_software.webcontent.trialday.TrialDay;
+import ch.schnuppertag_software.webcontext.trialday.TrialDay;
 
 /**
  * 
