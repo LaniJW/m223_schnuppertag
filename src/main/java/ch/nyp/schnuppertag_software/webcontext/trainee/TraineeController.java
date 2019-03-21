@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.trainee;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
 
 /**
  * 
@@ -49,5 +48,13 @@ public class TraineeController {
 		traineeService.save(trainee);
 		
 		return new ResponseEntity<>(trainee, HttpStatus.CREATED);
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Trainee>> getAll(){
+		List<Trainee> trainees = traineeService.getAll();
+		
+		return new ResponseEntity<>(trainees, HttpStatus.OK);	
+	
 	}
 }

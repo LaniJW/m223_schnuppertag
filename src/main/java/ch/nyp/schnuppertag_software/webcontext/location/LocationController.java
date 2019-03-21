@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.location;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,13 @@ public class LocationController {
 		locationService.save(location);
 		
 		return new ResponseEntity<>(location, HttpStatus.CREATED);
+	}
+	
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<Location>> getAll(){
+		List<Location> locations = locationService.getAll();
+		
+		return new ResponseEntity<>(locations, HttpStatus.OK);	
+	
 	}
 }

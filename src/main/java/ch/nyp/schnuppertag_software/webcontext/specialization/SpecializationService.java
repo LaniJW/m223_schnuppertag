@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.specialization;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,10 @@ public class SpecializationService {
 
 	public void save(Specialization specialization) {
 		specializationRepository.save(specialization);
+	}
+
+	public List<Specialization> getAll() {
+		List<Specialization> specializations = specializationRepository.findAll();
+		return specializations;
 	}
 }
