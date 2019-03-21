@@ -5,10 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
+
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-03-20
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-03-21
  *
  */
 
@@ -26,4 +28,7 @@ public class TrialDayService {
 		return trialDay;
 	}
 
+	public void save(TrialDay trialDay) {
+		trialDayRepository.save(trialDay);
+	}
 }
