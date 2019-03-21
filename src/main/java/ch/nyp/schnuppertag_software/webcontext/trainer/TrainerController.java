@@ -64,6 +64,7 @@ public class TrainerController {
 		List<Trainer> trainers = trainerService.getAll();
 		
 		return new ResponseEntity<>(trainers, HttpStatus.OK);	
+	}
 	
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<Trainer> deleteById(@PathVariable Long id) {
@@ -76,8 +77,6 @@ public class TrainerController {
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-	}
-	
 	}
 	
 }
