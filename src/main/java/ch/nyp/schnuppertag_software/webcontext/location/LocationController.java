@@ -16,33 +16,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.nyp.schnuppertag_software.webcontext.location.Location;
+import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationDTO;
+import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationMapper;
 
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
- * @since 2019-03-21
+ * @since 2019-03-22
  *
  */
 
 @RestController
 @RequestMapping("/locations")
 public class LocationController {
-	
 	LocationService locationService;
+	LocationMapper locationMapper;
 	
 	@Autowired
-	public LocationController(LocationService locationService) {
+	public LocationController(LocationService locationService, LocationMapper locationMapper) {
 		this.locationService = locationService;
+		this.locationMapper = locationMapper;
 	}
 
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<Location> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<LocationDTO> getById(@PathVariable Long id){
 		Optional<Location> location = locationService.getById(id);
 		
 		if(location.isPresent()) {
-			return new ResponseEntity<>(location.get(), HttpStatus.OK);	
-		} else {
+			return new ResponseEntity<>(locationMapper.toDTO(location.get()), HttpStatus.OK);	
+		}
+		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
