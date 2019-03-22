@@ -16,33 +16,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
+import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationDTO;
+import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationMapper;
 
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
- * @since 2019-03-21
+ * @since 2019-03-22
  *
  */
 
 @RestController
 @RequestMapping("/specializations")
 public class SpecializationController {
-
 	SpecializationService specializationService;
+	SpecializationMapper specializationMapper;
 	
 	@Autowired
-	public SpecializationController(SpecializationService specializationService) {
+	public SpecializationController(SpecializationService specializationService, SpecializationMapper specializationMapper) {
 		this.specializationService = specializationService;
+		this.specializationMapper = specializationMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<Specialization> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<SpecializationDTO> getById(@PathVariable Long id){
 		Optional<Specialization> specialization = specializationService.getById(id);
 		
 		if(specialization.isPresent()) {
-			return new ResponseEntity<>(specialization.get(), HttpStatus.OK);	
-		} else {
+			return new ResponseEntity<>(specializationMapper.toDTO(specialization.get()), HttpStatus.OK);	
+		}
+		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}

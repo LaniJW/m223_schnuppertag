@@ -16,33 +16,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.nyp.schnuppertag_software.webcontext.address.Address;
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressDTO;
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
- * @since 2019-03-21
+ * @since 2019-03-22
  *
  */
 
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
-
 	AddressService addressService;
+	AddressMapper addressMapper;
 	
 	@Autowired
-	public AddressController(AddressService addressService) {
+	public AddressController(AddressService addressService, AddressMapper addressMapper) {
 		this.addressService = addressService;
+		this.addressMapper = addressMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<Address> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<AddressDTO> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
 		
 		if(address.isPresent()) {
-			return new ResponseEntity<>(address.get(), HttpStatus.OK);	
-		} else {
+			return new ResponseEntity<>(addressMapper.toDTO(address.get()), HttpStatus.OK);	
+		}
+		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
