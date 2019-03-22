@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.nyp.schnuppertag_software.webcontext.trainee.Trainee;
+import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeDTO;
+import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeMapper;
 
 /**
  * 
  * @author Lani Wagner, Alexandra Girsberger
- * @since 2019-03-21
+ * @since 2019-03-22
  *
  */
 
@@ -29,18 +30,20 @@ import ch.nyp.schnuppertag_software.webcontext.trainee.Trainee;
 @RequestMapping("/trainees")
 public class TraineeController {
 	TraineeService traineeService;
+	TraineeMapper traineeMapper;
 	
 	@Autowired
-	public TraineeController(TraineeService traineeService) {
+	public TraineeController(TraineeService traineeService, TraineeMapper trainerMapper) {
 		this.traineeService = traineeService;
+		this.traineeMapper = trainerMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<Trainee> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<TraineeDTO> getById(@PathVariable Long id){
 		Optional<Trainee> trainee = traineeService.getById(id);
 		
 		if(trainee.isPresent()) {
-			return new ResponseEntity<>(trainee.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(traineeMapper.toDTO(trainee.get()), HttpStatus.OK);	
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

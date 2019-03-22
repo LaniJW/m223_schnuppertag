@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerDTO;
+import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerMapper;
+
 /**
  * 
  * @author Lani Wagner, Alexandra Girsberger
- * @since 2019-03-21
+ * @since 2019-03-22
  * 
  */
 
@@ -27,18 +30,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/trainers")
 public class TrainerController {
 	TrainerService trainerService;
+	TrainerMapper trainerMapper;
 
 	@Autowired
-	public TrainerController(TrainerService trainerService) {
+	public TrainerController(TrainerService trainerService, TrainerMapper trainerMapper) {
 		this.trainerService = trainerService;
+		this.trainerMapper = trainerMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<Trainer> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<TrainerDTO> getById(@PathVariable Long id){
 		Optional<Trainer> trainer = trainerService.getById(id);
 		
 		if(trainer.isPresent()) {
-			return new ResponseEntity<>(trainer.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(trainerMapper.toDTO(trainer.get()), HttpStatus.OK);	
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
