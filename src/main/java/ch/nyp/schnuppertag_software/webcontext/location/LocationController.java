@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationWIDDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +32,11 @@ import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationMapper;
 public class LocationController {
 	LocationService locationService;
 	LocationMapper locationMapper;
-	LocationWIDDTOMapper locationwIdDtoMapper;
 	
 	@Autowired
-	public LocationController(LocationService locationService, LocationMapper locationMapper, LocationWIDDTOMapper locationwIdDtoMapper) {
+	public LocationController(LocationService locationService, LocationMapper locationMapper) {
 		this.locationService = locationService;
 		this.locationMapper = locationMapper;
-		this.locationwIdDtoMapper = locationwIdDtoMapper;
 	}
 
 	@GetMapping("/{id}")
@@ -47,7 +44,7 @@ public class LocationController {
 		Optional<Location> location = locationService.getById(id);
 		
 		if(location.isPresent())
-			return new ResponseEntity<>(locationwIdDtoMapper.toDTO(location.get()), HttpStatus.OK);
+			return new ResponseEntity<>(locationMapper.toDTOwId(location.get()), HttpStatus.OK);
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -61,7 +58,7 @@ public class LocationController {
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<LocationWIDDTO>> getAllwId(){
 		List<Location> locations = locationService.getAll();
-		return new ResponseEntity<>(locationwIdDtoMapper.toDTOs(locations), HttpStatus.OK);
+		return new ResponseEntity<>(locationMapper.toDTOwIds(locations), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
@@ -73,7 +70,7 @@ public class LocationController {
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<LocationWIDDTO> updateById(@RequestBody LocationDTO location, @PathVariable Long id) {
 		locationService.updateById(locationMapper.fromDTO(location), id);
-		return new ResponseEntity<>(locationwIdDtoMapper.toDTO(location), HttpStatus.CREATED);
+		return new ResponseEntity<>(locationMapper.toDTOwId(location), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -82,7 +79,7 @@ public class LocationController {
 		
 		if(location.isPresent()) {
 			locationService.deleteById(id);
-			return new ResponseEntity<>(locationwIdDtoMapper.toDTO(location.get()), HttpStatus.OK);
+			return new ResponseEntity<>(locationMapper.toDTOwId(location.get()), HttpStatus.OK);
 		}
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -20,5 +20,15 @@ public interface LocationMapper {
 	List<LocationDTO> toDTOs(List<Location> location);
 
 	Location fromDTO(LocationDTO locationDto);
-	List<Location> fromDTO(List<LocationDTO> locationDto);
+	List<Location> fromDTOs(List<LocationDTO> locationDto);
+	
+	LocationWIDDTO toDTOwId(Location location);
+	LocationWIDDTO toDTOwId(LocationDTO locationDto);
+	List<LocationWIDDTO> toDTOwIds(List<Location> location);
+	
+	Location fromDTOwId(LocationWIDDTO locationwIdDto);
+	List<Location> fromDTOwIds(List<LocationWIDDTO> locationwIdDto);
+	
+	
+	
 }
