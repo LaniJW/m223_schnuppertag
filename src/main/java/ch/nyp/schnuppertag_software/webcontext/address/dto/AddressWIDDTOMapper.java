@@ -6,6 +6,13 @@ import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
+/**
+ *
+ * @author Lani Wagner
+ * @since 2019-03-27
+ *
+ */
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AddressWIDDTOMapper {
 	AddressWIDDTO toDTO(Address address);

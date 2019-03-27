@@ -46,12 +46,10 @@ public class AddressController {
 	public @ResponseBody ResponseEntity<AddressWIDDTO> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
 
-		if(address.isPresent()) {
+		if(address.isPresent())
 			return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address.get()), HttpStatus.OK);
-		}
-		else {
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 
 	@GetMapping({"", "/"})
@@ -86,8 +84,7 @@ public class AddressController {
 			addressService.deleteById(id);
 			return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address.get()), HttpStatus.OK);
 		}
-		else {
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 }
