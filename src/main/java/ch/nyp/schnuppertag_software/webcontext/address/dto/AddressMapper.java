@@ -20,5 +20,12 @@ public interface AddressMapper {
 	List<AddressDTO> toDTOs(List<Address> address);
 
 	Address fromDTO(AddressDTO addressDto);
-	List<Address> fromDTO(List<AddressDTO> addressDto);
+	List<Address> fromDTOs(List<AddressDTO> addressDto);
+	
+	AddressWIDDTO toDTOwId(Address address);
+	AddressWIDDTO toDTOwId(AddressDTO addressDto);
+	List<AddressWIDDTO> toDTOwIds(List<Address> address);
+
+	Address fromDTOwId(AddressWIDDTO AddresswIdDto);
+	List<Address> fromDTOwIds(List<AddressWIDDTO> AddresswIdDto);
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +32,11 @@ import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 public class AddressController {
 	AddressService addressService;
 	AddressMapper addressMapper;
-	AddressWIDDTOMapper addresswIdDtoMapper;
 	
 	@Autowired
-	public AddressController(AddressService addressService, AddressMapper addressMapper, AddressWIDDTOMapper addresswIdDtoMapper) {
+	public AddressController(AddressService addressService, AddressMapper addressMapper) {
 		this.addressService = addressService;
 		this.addressMapper = addressMapper;
-		this.addresswIdDtoMapper = addresswIdDtoMapper;
 	}
 	
 	@GetMapping("/{id}")
@@ -47,7 +44,7 @@ public class AddressController {
 		Optional<Address> address = addressService.getById(id);
 
 		if(address.isPresent())
-			return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address.get()), HttpStatus.OK);
+			return new ResponseEntity<>(addressMapper.toDTOwId(address.get()), HttpStatus.OK);
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -61,7 +58,7 @@ public class AddressController {
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<AddressWIDDTO>> getAllwId(){
 		List<Address> addresses = addressService.getAll();
-		return new ResponseEntity<>(addresswIdDtoMapper.toDTOs(addresses), HttpStatus.OK);
+		return new ResponseEntity<>(addressMapper.toDTOwIds(addresses), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
@@ -73,7 +70,7 @@ public class AddressController {
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> updateById(@RequestBody AddressDTO address, @PathVariable Long id) {
 		addressService.updateById(addressMapper.fromDTO(address), id);
-		return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address), HttpStatus.CREATED);
+		return new ResponseEntity<>(addressMapper.toDTOwId(address), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -82,7 +79,7 @@ public class AddressController {
 		
 		if(address.isPresent()) {
 			addressService.deleteById(id);
-			return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address.get()), HttpStatus.OK);
+			return new ResponseEntity<>(addressMapper.toDTOwId(address.get()), HttpStatus.OK);
 		}
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
