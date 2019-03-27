@@ -10,7 +10,6 @@ package ch.nyp.schnuppertag_software.webcontext.specialization.dto;
 public class SpecializationDTO {
 
 	private String title;
-	
 	private String description;
 	
 	public SpecializationDTO() {

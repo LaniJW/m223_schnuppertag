@@ -3,6 +3,8 @@ package ch.nyp.schnuppertag_software.webcontext.address;
 import java.util.List;
 import java.util.Optional;
 
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
- * @since 2019-03-22
+ * @since 2019-03-27
  *
  */
 
@@ -31,57 +33,58 @@ import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 public class AddressController {
 	AddressService addressService;
 	AddressMapper addressMapper;
+	AddressWIDDTOMapper addresswIdDtoMapper;
 	
 	@Autowired
-	public AddressController(AddressService addressService, AddressMapper addressMapper) {
+	public AddressController(AddressService addressService, AddressMapper addressMapper, AddressWIDDTOMapper addresswIdDtoMapper) {
 		this.addressService = addressService;
 		this.addressMapper = addressMapper;
+		this.addresswIdDtoMapper = addresswIdDtoMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<AddressDTO> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<AddressWIDDTO> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
-		
-		if(address.isPresent()) {
-			return new ResponseEntity<>(addressMapper.toDTO(address.get()), HttpStatus.OK);	
-		}
-		else {
+
+		if(address.isPresent())
+			return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address.get()), HttpStatus.OK);
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	}
+
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<AddressDTO>> getAll(){
+		List<Address> addresses = addressService.getAll();
+		return new ResponseEntity<>(addressMapper.toDTOs(addresses), HttpStatus.OK);
+	}
+
+	@GetMapping("/all")
+	public @ResponseBody ResponseEntity<List<AddressWIDDTO>> getAllwId(){
+		List<Address> addresses = addressService.getAll();
+		return new ResponseEntity<>(addresswIdDtoMapper.toDTOs(addresses), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
-	public @ResponseBody ResponseEntity<Address> create(@RequestBody Address address) {
-		addressService.save(address);
-		
+	public @ResponseBody ResponseEntity<AddressDTO> create(@RequestBody AddressDTO address) {
+		addressService.save(addressMapper.fromDTO(address));
 		return new ResponseEntity<>(address, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public @ResponseBody ResponseEntity<Address> update(@RequestBody Address address, @PathVariable Long id) {
-		addressService.updateById(address, id);
-		
-		return new ResponseEntity<>(address, HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<AddressWIDDTO> updateById(@RequestBody AddressDTO address, @PathVariable Long id) {
+		addressService.updateById(addressMapper.fromDTO(address), id);
+		return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<Address> deleteById(@PathVariable Long id) {
+	public @ResponseBody ResponseEntity<AddressWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Address> address = addressService.getById(id);
 		
 		if(address.isPresent()) {
 			addressService.deleteById(id);
-			return new ResponseEntity<>(address.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address.get()), HttpStatus.OK);
 		}
-		else {
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@GetMapping({"", "/"})
-	public @ResponseBody ResponseEntity<List<Address>> getAll(){
-		List<Address> addresses = addressService.getAll();
-		
-		return new ResponseEntity<>(addresses, HttpStatus.OK);	
-	
 	}
 }
