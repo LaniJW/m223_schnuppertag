@@ -46,12 +46,10 @@ public class TrainerController {
 	public @ResponseBody ResponseEntity<TrainerWIDDTO> getById(@PathVariable Long id){
 		Optional<Trainer> trainer = trainerService.getById(id);
 		
-		if(trainer.isPresent()) {
+		if(trainer.isPresent()) 
 			return new ResponseEntity<>(trainerwIdMapper.toDTO(trainer.get()), HttpStatus.OK);	
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		else 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 	}
 	
 	@GetMapping({"", "/"})
@@ -90,8 +88,7 @@ public class TrainerController {
 			trainerService.deleteById(id);
 			return new ResponseEntity<>(trainerwIdMapper.toDTO(trainer.get()), HttpStatus.OK);	
 		}
-		else {
+		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 }
