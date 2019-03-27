@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import ch.nyp.schnuppertag_software.webcontext.specialization.SpecializationValidation;
 import ch.nyp.schnuppertag_software.webcontext.trainee.TraineeValidation;
 import ch.nyp.schnuppertag_software.webcontext.trainer.TrainerValidation;
 

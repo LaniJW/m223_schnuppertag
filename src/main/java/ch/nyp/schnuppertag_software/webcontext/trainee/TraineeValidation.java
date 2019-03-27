@@ -6,6 +6,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import ch.nyp.schnuppertag_software.webcontext.address.AddressValidation;
+
 /**
  * @author Alexandra Girsberger
  * @since 2019-02-27

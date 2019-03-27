@@ -1,6 +1,8 @@
 package ch.nyp.schnuppertag_software.webcontext.location;
 
 import ch.nyp.schnuppertag_software.webcontext.address.AddressValidation;
+import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDayValidation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
