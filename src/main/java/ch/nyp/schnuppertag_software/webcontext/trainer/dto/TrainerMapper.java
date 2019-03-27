@@ -20,5 +20,12 @@ public interface TrainerMapper {
 	List<TrainerDTO> toDTOs(List<Trainer> trainer);
 
 	Trainer fromDTO(TrainerDTO trainerDto);
-	List<Trainer> fromDTO(List<TrainerDTO> trainerDto);
+	List<Trainer> fromDTOs(List<TrainerDTO> trainerDto);
+	
+	TrainerWIDDTO toDTOwId(Trainer trainer);
+	TrainerWIDDTO toDTOwId(TrainerDTO trainerDto);
+	List<TrainerWIDDTO> toDTOwIds(List<Trainer> trainer);
+
+	Trainer fromDTOwId(TrainerWIDDTO trainerwIdDto);
+	List<Trainer> fromDTOwIds(List<TrainerWIDDTO> trainerwIdDto);
 }

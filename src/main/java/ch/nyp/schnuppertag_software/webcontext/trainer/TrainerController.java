@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerDTO;
 import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerMapper;
 import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerWIDMapper;
 
 /**
  * 
@@ -33,13 +32,11 @@ import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerWIDMapper;
 public class TrainerController {
 	TrainerService trainerService;
 	TrainerMapper trainerMapper;
-	TrainerWIDMapper trainerwIdMapper;
 
 	@Autowired
-	public TrainerController(TrainerService trainerService, TrainerMapper trainerMapper, TrainerWIDMapper trainerwIdMapper) {
+	public TrainerController(TrainerService trainerService, TrainerMapper trainerMapper) {
 		this.trainerService = trainerService;
 		this.trainerMapper = trainerMapper;
-		this.trainerwIdMapper = trainerwIdMapper;
 	}
 	
 	@GetMapping("/{id}")
@@ -47,7 +44,7 @@ public class TrainerController {
 		Optional<Trainer> trainer = trainerService.getById(id);
 		
 		if(trainer.isPresent()) 
-			return new ResponseEntity<>(trainerwIdMapper.toDTO(trainer.get()), HttpStatus.OK);	
+			return new ResponseEntity<>(trainerMapper.toDTOwId(trainer.get()), HttpStatus.OK);	
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 	}
@@ -63,7 +60,7 @@ public class TrainerController {
 	public @ResponseBody ResponseEntity<List<TrainerWIDDTO>> getAllwId(){
 		List<Trainer> trainers = trainerService.getAll();
 		
-		return new ResponseEntity<>(trainerwIdMapper.toDTOs(trainers), HttpStatus.OK);
+		return new ResponseEntity<>(trainerMapper.toDTOwIds(trainers), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
@@ -77,7 +74,7 @@ public class TrainerController {
 	public @ResponseBody ResponseEntity<TrainerWIDDTO> updateById(@RequestBody TrainerDTO trainer, @PathVariable Long id) {
 		trainerService.updateById(trainerMapper.fromDTO(trainer), id);
 		
-		return new ResponseEntity<>(trainerMapper.toDTO(trainer), HttpStatus.CREATED);
+		return new ResponseEntity<>(trainerMapper.toDTOwId(trainer), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -86,7 +83,7 @@ public class TrainerController {
 		
 		if(trainer.isPresent()) {
 			trainerService.deleteById(id);
-			return new ResponseEntity<>(trainerwIdMapper.toDTO(trainer.get()), HttpStatus.OK);	
+			return new ResponseEntity<>(trainerMapper.toDTOwId(trainer.get()), HttpStatus.OK);	
 		}
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
