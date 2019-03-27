@@ -24,7 +24,7 @@ import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationMapper;
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
- * @since 2019-03-22
+ * @since 2019-03-27
  *
  */
 
