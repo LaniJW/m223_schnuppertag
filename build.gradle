@@ -31,13 +31,17 @@ implementation 'org.springframework.boot:spring-boot-starter-web'
 testImplementation 'org.springframework.boot:spring-boot-starter-test'
 testImplementation 'org.springframework.security:spring-security-test'
  
-//Mapstruct
-implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    //Mapstruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
  
-// PostgreSQL
-compile group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
+    // PostgreSQL
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
+
+    // Swagger
+    compile "io.springfox:springfox-swagger2:2.9.2"
+    compile "io.springfox:springfox-swagger-ui:2.9.2"
 
 }

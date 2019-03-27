@@ -4,6 +4,7 @@ import ch.nyp.schnuppertag_software.webcontext.address.AddressValidation;
 import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDayValidation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -15,6 +16,7 @@ import org.springframework.validation.Validator;
  *
  */
 
+@Component
 public class LocationValidation implements Validator
 {
 	AddressValidation addressValidation;
