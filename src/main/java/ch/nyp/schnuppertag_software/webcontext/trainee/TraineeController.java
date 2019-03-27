@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeDTO;
 import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeMapper;
 import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeWIDMapper;
 
 /**
  * 
@@ -33,13 +32,11 @@ import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeWIDMapper;
 public class TraineeController {
 	TraineeService traineeService;
 	TraineeMapper traineeMapper;
-	TraineeWIDMapper traineewIdMapper;
 	
 	@Autowired
-	public TraineeController(TraineeService traineeService, TraineeMapper traineeMapper, TraineeWIDMapper traineewIdMapper) {
+	public TraineeController(TraineeService traineeService, TraineeMapper traineeMapper) {
 		this.traineeService = traineeService;
 		this.traineeMapper = traineeMapper;
-		this.traineewIdMapper = traineewIdMapper;
 	}
 	
 	@GetMapping("/{id}")
@@ -47,7 +44,7 @@ public class TraineeController {
 		Optional<Trainee> trainee = traineeService.getById(id);
 		
 		if(trainee.isPresent()) 
-			return new ResponseEntity<>(traineewIdMapper.toDTO(trainee.get()), HttpStatus.OK);	
+			return new ResponseEntity<>(traineeMapper.toDTOwId(trainee.get()), HttpStatus.OK);	
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -64,7 +61,7 @@ public class TraineeController {
 	public @ResponseBody ResponseEntity<List<TraineeWIDDTO>> getAllwId(){
 		List<Trainee> trainees = traineeService.getAll();
 		
-		return new ResponseEntity<>(traineewIdMapper.toDTOs(trainees), HttpStatus.OK);
+		return new ResponseEntity<>(traineeMapper.toDTOwIds(trainees), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
@@ -87,7 +84,7 @@ public class TraineeController {
 		
 		if(trainee.isPresent()) {
 			traineeService.deleteById(id);
-			return new ResponseEntity<>(traineewIdMapper.toDTO(trainee.get()), HttpStatus.OK);	
+			return new ResponseEntity<>(traineeMapper.toDTOwId(trainee.get()), HttpStatus.OK);	
 		}
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);		
