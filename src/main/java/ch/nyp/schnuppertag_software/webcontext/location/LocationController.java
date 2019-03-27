@@ -3,6 +3,8 @@ package ch.nyp.schnuppertag_software.webcontext.location;
 import java.util.List;
 import java.util.Optional;
 
+import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationWIDDTO;
+import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationWIDDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,57 +33,58 @@ import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationMapper;
 public class LocationController {
 	LocationService locationService;
 	LocationMapper locationMapper;
+	LocationWIDDTOMapper locationwIdDtoMapper;
 	
 	@Autowired
-	public LocationController(LocationService locationService, LocationMapper locationMapper) {
+	public LocationController(LocationService locationService, LocationMapper locationMapper, LocationWIDDTOMapper locationwIdDtoMapper) {
 		this.locationService = locationService;
 		this.locationMapper = locationMapper;
+		this.locationwIdDtoMapper = locationwIdDtoMapper;
 	}
 
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<LocationDTO> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<LocationWIDDTO> getById(@PathVariable Long id){
 		Optional<Location> location = locationService.getById(id);
 		
-		if(location.isPresent()) {
-			return new ResponseEntity<>(locationMapper.toDTO(location.get()), HttpStatus.OK);	
-		}
-		else {
+		if(location.isPresent())
+			return new ResponseEntity<>(locationwIdDtoMapper.toDTO(location.get()), HttpStatus.OK);
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	}
+
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<LocationDTO>> getAll(){
+		List<Location> locations = locationService.getAll();
+		return new ResponseEntity<>(locationMapper.toDTOs(locations), HttpStatus.OK);
+	}
+
+	@GetMapping("/all")
+	public @ResponseBody ResponseEntity<List<LocationWIDDTO>> getAllwId(){
+		List<Location> locations = locationService.getAll();
+		return new ResponseEntity<>(locationwIdDtoMapper.toDTOs(locations), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
-	public @ResponseBody ResponseEntity<Location> create(@RequestBody Location location) {
-		locationService.save(location);
-		
+	public @ResponseBody ResponseEntity<LocationDTO> create(@RequestBody LocationDTO location) {
+		locationService.save(locationMapper.fromDTO(location));
 		return new ResponseEntity<>(location, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public @ResponseBody ResponseEntity<Location> update(@RequestBody Location location, @PathVariable Long id) {
-		locationService.updateById(location, id);
-		
-		return new ResponseEntity<>(location, HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<LocationWIDDTO> updateById(@RequestBody LocationDTO location, @PathVariable Long id) {
+		locationService.updateById(locationMapper.fromDTO(location), id);
+		return new ResponseEntity<>(locationwIdDtoMapper.toDTO(location), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<Location> deleteById(@PathVariable Long id) {
+	public @ResponseBody ResponseEntity<LocationWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Location> location = locationService.getById(id);
 		
 		if(location.isPresent()) {
 			locationService.deleteById(id);
-			return new ResponseEntity<>(location.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(locationwIdDtoMapper.toDTO(location.get()), HttpStatus.OK);
 		}
-		else {
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@GetMapping({"", "/"})
-	public @ResponseBody ResponseEntity<List<Location>> getAll(){
-		List<Location> locations = locationService.getAll();
-		
-		return new ResponseEntity<>(locations, HttpStatus.OK);	
-	
 	}
 }
