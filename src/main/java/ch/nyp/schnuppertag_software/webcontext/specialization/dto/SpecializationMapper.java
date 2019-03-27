@@ -8,15 +8,17 @@ import org.mapstruct.ReportingPolicy;
 import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
 
 /**
- * 
- * @author Alexandra Girsberger
- * @since 2019-03-21
+ *
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-03-27
  *
  */
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SpecializationMapper {
 	SpecializationDTO toDTO(Specialization specialization);
-
 	List<SpecializationDTO> toDTOs(List<Specialization> specialization);
+
+	Specialization fromDTO(SpecializationDTO specializationDto);
+	List<Specialization> fromDTO(List<SpecializationDTO> specializationDto);
 }
