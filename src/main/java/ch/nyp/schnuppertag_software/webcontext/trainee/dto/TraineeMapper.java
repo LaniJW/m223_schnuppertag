@@ -16,6 +16,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TraineeMapper {
 	TraineeDTO toDTO(Trainee trainee);
+	TraineeWIDDTO toDTO(TraineeDTO traineeDto);
 	List<TraineeDTO> toDTOs(List<Trainee> trainee);
 
 	Trainee fromDTO(TraineeDTO traineeDto);

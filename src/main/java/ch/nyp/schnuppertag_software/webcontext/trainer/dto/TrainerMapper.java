@@ -16,6 +16,7 @@ import ch.nyp.schnuppertag_software.webcontext.trainer.Trainer;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TrainerMapper {
 	TrainerDTO toDTO(Trainer trainer);
+	TrainerWIDDTO toDTO(TrainerDTO trainerDto);
 	List<TrainerDTO> toDTOs(List<Trainer> trainer);
 
 	Trainer fromDTO(TrainerDTO trainerDto);

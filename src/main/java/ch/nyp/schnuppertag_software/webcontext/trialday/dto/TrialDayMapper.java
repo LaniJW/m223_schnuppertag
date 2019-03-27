@@ -16,6 +16,7 @@ import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TrialDayMapper {
 	TrialDayDTO toDTO(TrialDay trialDay);
+	TrialDayWIDDTO toDTO(TrialDayDTO trialDayDto);
 	List<TrialDayDTO> toDTOs(List<TrialDay> trialDay);
 
 	TrialDay fromDTO(TrialDayDTO trialDayDto);
