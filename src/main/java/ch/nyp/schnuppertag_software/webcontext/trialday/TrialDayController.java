@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.nyp.schnuppertag_software.webcontext.trialday.dto.TrialDayDTO;
 import ch.nyp.schnuppertag_software.webcontext.trialday.dto.TrialDayMapper;
 import ch.nyp.schnuppertag_software.webcontext.trialday.dto.TrialDayWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.trialday.dto.TrialDayWIDMapper;
 
 /**
  * 
@@ -34,13 +33,11 @@ public class TrialDayController {
 	
 TrialDayService trialDayService;
 TrialDayMapper trialDayMapper;
-TrialDayWIDMapper trialDaywIdMapper;
 	
 	@Autowired
-	public TrialDayController(TrialDayService trialDayService, TrialDayMapper trialDayMapper, TrialDayWIDMapper trialDaywIdMapper) {
+	public TrialDayController(TrialDayService trialDayService, TrialDayMapper trialDayMapper) {
 		this.trialDayService = trialDayService;
 		this.trialDayMapper = trialDayMapper;
-		this.trialDaywIdMapper = trialDaywIdMapper;
 	}
 	
 	@GetMapping("/{id}")
@@ -48,7 +45,7 @@ TrialDayWIDMapper trialDaywIdMapper;
 		Optional<TrialDay> trialDay = trialDayService.getById(id);
 		
 		if(trialDay.isPresent()) 
-			return new ResponseEntity<>(trialDaywIdMapper.toDTO(trialDay.get()), HttpStatus.OK);	
+			return new ResponseEntity<>(trialDayMapper.toDTOwId(trialDay.get()), HttpStatus.OK);	
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -65,7 +62,7 @@ TrialDayWIDMapper trialDaywIdMapper;
 	public @ResponseBody ResponseEntity<List<TrialDayWIDDTO>> getAllwId(){
 		List<TrialDay> trialDays = trialDayService.getAll();
 		
-		return new ResponseEntity<>(trialDaywIdMapper.toDTOs(trialDays), HttpStatus.OK);
+		return new ResponseEntity<>(trialDayMapper.toDTOwIds(trialDays), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
@@ -79,7 +76,7 @@ TrialDayWIDMapper trialDaywIdMapper;
 	public @ResponseBody ResponseEntity<TrialDayWIDDTO> updateById(@RequestBody TrialDayDTO trialDay, @PathVariable Long id) {
 		trialDayService.updateById(trialDayMapper.fromDTO(trialDay), id);
 		
-		return new ResponseEntity<>(trialDayMapper.toDTO(trialDay), HttpStatus.CREATED);
+		return new ResponseEntity<>(trialDayMapper.toDTOwId(trialDay), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -88,7 +85,7 @@ TrialDayWIDMapper trialDaywIdMapper;
 		
 		if(trialDay.isPresent()) {
 			trialDayService.deleteById(id);
-			return new ResponseEntity<>(trialDaywIdMapper.toDTO(trialDay.get()), HttpStatus.OK);	
+			return new ResponseEntity<>(trialDayMapper.toDTOwId(trialDay.get()), HttpStatus.OK);	
 		}
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

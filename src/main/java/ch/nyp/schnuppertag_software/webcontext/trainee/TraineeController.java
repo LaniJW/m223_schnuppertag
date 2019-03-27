@@ -75,7 +75,7 @@ public class TraineeController {
 	public @ResponseBody ResponseEntity<TraineeWIDDTO> updateById(@RequestBody TraineeDTO trainee, @PathVariable Long id) {
 		traineeService.updateById(traineeMapper.fromDTO(trainee), id);
 		
-		return new ResponseEntity<>(traineeMapper.toDTO(trainee), HttpStatus.CREATED);
+		return new ResponseEntity<>(traineeMapper.toDTOwId(trainee), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
