@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationWIDDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +32,11 @@ import ch.nyp.schnuppertag_software.webcontext.specialization.dto.Specialization
 public class SpecializationController {
 	SpecializationService specializationService;
 	SpecializationMapper specializationMapper;
-	SpecializationWIDDTOMapper specializationwIdDtoMapper;
 	
 	@Autowired
-	public SpecializationController(SpecializationService specializationService, SpecializationMapper specializationMapper, SpecializationWIDDTOMapper specializationwIdDtoMapper) {
+	public SpecializationController(SpecializationService specializationService, SpecializationMapper specializationMapper) {
 		this.specializationService = specializationService;
 		this.specializationMapper = specializationMapper;
-		this.specializationwIdDtoMapper = specializationwIdDtoMapper;
 	}
 	
 	@GetMapping("/{id}")
@@ -47,7 +44,7 @@ public class SpecializationController {
 		Optional<Specialization> specialization = specializationService.getById(id);
 		
 		if(specialization.isPresent())
-			return new ResponseEntity<>(specializationwIdDtoMapper.toDTO(specialization.get()), HttpStatus.OK);
+			return new ResponseEntity<>(specializationMapper.toDTOwId(specialization.get()), HttpStatus.OK);
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
@@ -61,7 +58,7 @@ public class SpecializationController {
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<SpecializationWIDDTO>> getAllwId(){
 		List<Specialization> specializations = specializationService.getAll();
-		return new ResponseEntity<>(specializationwIdDtoMapper.toDTOs(specializations), HttpStatus.OK);
+		return new ResponseEntity<>(specializationMapper.toDTOwIds(specializations), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
@@ -73,7 +70,7 @@ public class SpecializationController {
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<SpecializationWIDDTO> update(@RequestBody SpecializationDTO specialization, @PathVariable Long id) {
 		specializationService.updateById(specializationMapper.fromDTO(specialization), id);
-		return new ResponseEntity<>(specializationwIdDtoMapper.toDTO(specialization), HttpStatus.CREATED);
+		return new ResponseEntity<>(specializationMapper.toDTOwId(specialization), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -82,7 +79,7 @@ public class SpecializationController {
 		
 		if(specialization.isPresent()) {
 			specializationService.deleteById(id);
-			return new ResponseEntity<>(specializationwIdDtoMapper.toDTO(specialization.get()), HttpStatus.OK);
+			return new ResponseEntity<>(specializationMapper.toDTOwId(specialization.get()), HttpStatus.OK);
 		}
 		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
