@@ -46,12 +46,10 @@ public class TraineeController {
 	public @ResponseBody ResponseEntity<TraineeWIDDTO> getById(@PathVariable Long id){
 		Optional<Trainee> trainee = traineeService.getById(id);
 		
-		if(trainee.isPresent()) {
+		if(trainee.isPresent()) 
 			return new ResponseEntity<>(traineewIdMapper.toDTO(trainee.get()), HttpStatus.OK);	
-		}
-		else {
+		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 
 	@GetMapping({"", "/"})
@@ -91,8 +89,7 @@ public class TraineeController {
 			traineeService.deleteById(id);
 			return new ResponseEntity<>(traineewIdMapper.toDTO(trainee.get()), HttpStatus.OK);	
 		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		else 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);		
 	}
 }

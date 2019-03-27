@@ -47,11 +47,10 @@ TrialDayWIDMapper trialDaywIdMapper;
 	public @ResponseBody ResponseEntity<TrialDayWIDDTO> getById(@PathVariable Long id){
 		Optional<TrialDay> trialDay = trialDayService.getById(id);
 		
-		if(trialDay.isPresent()) {
+		if(trialDay.isPresent()) 
 			return new ResponseEntity<>(trialDaywIdMapper.toDTO(trialDay.get()), HttpStatus.OK);	
-		} else {
+		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 	
 	@GetMapping({"", "/"})
@@ -91,8 +90,7 @@ TrialDayWIDMapper trialDaywIdMapper;
 			trialDayService.deleteById(id);
 			return new ResponseEntity<>(trialDaywIdMapper.toDTO(trialDay.get()), HttpStatus.OK);	
 		}
-		else {
+		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
 }
