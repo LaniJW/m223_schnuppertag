@@ -3,6 +3,8 @@ package ch.nyp.schnuppertag_software.webcontext.specialization;
 import java.util.List;
 import java.util.Optional;
 
+import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationWIDDTO;
+import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationWIDDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ import ch.nyp.schnuppertag_software.webcontext.specialization.dto.Specialization
 /**
  * 
  * @author Alexandra Girsberger, Lani Wagner
- * @since 2019-03-22
+ * @since 2019-03-27
  *
  */
 
@@ -31,57 +33,58 @@ import ch.nyp.schnuppertag_software.webcontext.specialization.dto.Specialization
 public class SpecializationController {
 	SpecializationService specializationService;
 	SpecializationMapper specializationMapper;
+	SpecializationWIDDTOMapper specializationwIdDtoMapper;
 	
 	@Autowired
-	public SpecializationController(SpecializationService specializationService, SpecializationMapper specializationMapper) {
+	public SpecializationController(SpecializationService specializationService, SpecializationMapper specializationMapper, SpecializationWIDDTOMapper specializationwIdDtoMapper) {
 		this.specializationService = specializationService;
 		this.specializationMapper = specializationMapper;
+		this.specializationwIdDtoMapper = specializationwIdDtoMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<SpecializationDTO> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<SpecializationWIDDTO> getById(@PathVariable Long id){
 		Optional<Specialization> specialization = specializationService.getById(id);
 		
-		if(specialization.isPresent()) {
-			return new ResponseEntity<>(specializationMapper.toDTO(specialization.get()), HttpStatus.OK);	
-		}
-		else {
+		if(specialization.isPresent())
+			return new ResponseEntity<>(specializationwIdDtoMapper.toDTO(specialization.get()), HttpStatus.OK);
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	}
+
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<SpecializationDTO>> getAll(){
+		List<Specialization> specializations = specializationService.getAll();
+		return new ResponseEntity<>(specializationMapper.toDTOs(specializations), HttpStatus.OK);
+	}
+
+	@GetMapping("/all")
+	public @ResponseBody ResponseEntity<List<SpecializationWIDDTO>> getAllwId(){
+		List<Specialization> specializations = specializationService.getAll();
+		return new ResponseEntity<>(specializationwIdDtoMapper.toDTOs(specializations), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
-	public @ResponseBody ResponseEntity<Specialization> create(@RequestBody Specialization specialization) {
-		specializationService.save(specialization);
-		
+	public @ResponseBody ResponseEntity<SpecializationDTO> create(@RequestBody SpecializationDTO specialization) {
+		specializationService.save(specializationMapper.fromDTO(specialization));
 		return new ResponseEntity<>(specialization, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public @ResponseBody ResponseEntity<Specialization> update(@RequestBody Specialization specialization, @PathVariable Long id) {
-		specializationService.updateById(specialization, id);
-		
-		return new ResponseEntity<>(specialization, HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<SpecializationWIDDTO> update(@RequestBody SpecializationDTO specialization, @PathVariable Long id) {
+		specializationService.updateById(specializationMapper.fromDTO(specialization), id);
+		return new ResponseEntity<>(specializationwIdDtoMapper.toDTO(specialization), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<Specialization> deleteById(@PathVariable Long id) {
+	public @ResponseBody ResponseEntity<SpecializationWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Specialization> specialization = specializationService.getById(id);
 		
 		if(specialization.isPresent()) {
 			specializationService.deleteById(id);
-			return new ResponseEntity<>(specialization.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(specializationwIdDtoMapper.toDTO(specialization.get()), HttpStatus.OK);
 		}
-		else {
+		else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@GetMapping({"", "/"})
-	public @ResponseBody ResponseEntity<List<Specialization>> getAll(){
-		List<Specialization> specializations = specializationService.getAll();
-		
-		return new ResponseEntity<>(specializations, HttpStatus.OK);	
-	
 	}
 }

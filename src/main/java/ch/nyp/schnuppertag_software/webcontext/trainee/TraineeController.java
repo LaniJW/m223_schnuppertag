@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeDTO;
 import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeMapper;
+import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeWIDDTO;
+import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeWIDMapper;
 
 /**
  * 
  * @author Lani Wagner, Alexandra Girsberger
- * @since 2019-03-22
+ * @since 2019-03-27
  *
  */
 
@@ -31,57 +33,63 @@ import ch.nyp.schnuppertag_software.webcontext.trainee.dto.TraineeMapper;
 public class TraineeController {
 	TraineeService traineeService;
 	TraineeMapper traineeMapper;
+	TraineeWIDMapper traineewIdMapper;
 	
 	@Autowired
-	public TraineeController(TraineeService traineeService, TraineeMapper trainerMapper) {
+	public TraineeController(TraineeService traineeService, TraineeMapper traineeMapper, TraineeWIDMapper traineewIdMapper) {
 		this.traineeService = traineeService;
-		this.traineeMapper = trainerMapper;
+		this.traineeMapper = traineeMapper;
+		this.traineewIdMapper = traineewIdMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<TraineeDTO> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<TraineeWIDDTO> getById(@PathVariable Long id){
 		Optional<Trainee> trainee = traineeService.getById(id);
 		
-		if(trainee.isPresent()) {
-			return new ResponseEntity<>(traineeMapper.toDTO(trainee.get()), HttpStatus.OK);	
-		}
-		else {
+		if(trainee.isPresent()) 
+			return new ResponseEntity<>(traineewIdMapper.toDTO(trainee.get()), HttpStatus.OK);	
+		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	}
+
+	@GetMapping({"", "/"})
+	public @ResponseBody ResponseEntity<List<TraineeDTO>> getAll(){
+		List<Trainee> trainees = traineeService.getAll();
+		
+		return new ResponseEntity<>(traineeMapper.toDTOs(trainees), HttpStatus.OK);	
+	
+	}
+	
+	@GetMapping({"/all"})
+	public @ResponseBody ResponseEntity<List<TraineeWIDDTO>> getAllwId(){
+		List<Trainee> trainees = traineeService.getAll();
+		
+		return new ResponseEntity<>(traineewIdMapper.toDTOs(trainees), HttpStatus.OK);
 	}
 	
 	@PostMapping({"", "/"})
-	public @ResponseBody ResponseEntity<Trainee> create(@RequestBody Trainee trainee) {
-		traineeService.save(trainee);
+	public @ResponseBody ResponseEntity<TraineeDTO> create(@RequestBody TraineeDTO trainee) {
+		traineeService.save(traineeMapper.fromDTO(trainee));
 		
 		return new ResponseEntity<>(trainee, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public @ResponseBody ResponseEntity<Trainee> update(@RequestBody Trainee trainee, @PathVariable Long id) {
-		traineeService.updateById(trainee, id);
+	public @ResponseBody ResponseEntity<TraineeWIDDTO> updateById(@RequestBody TraineeDTO trainee, @PathVariable Long id) {
+		traineeService.updateById(traineeMapper.fromDTO(trainee), id);
 		
-		return new ResponseEntity<>(trainee, HttpStatus.CREATED);
+		return new ResponseEntity<>(traineeMapper.toDTO(trainee), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<Trainee> deleteById(@PathVariable Long id) {
+	public @ResponseBody ResponseEntity<TraineeWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Trainee> trainee = traineeService.getById(id);
 		
 		if(trainee.isPresent()) {
 			traineeService.deleteById(id);
-			return new ResponseEntity<>(trainee.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(traineewIdMapper.toDTO(trainee.get()), HttpStatus.OK);	
 		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@GetMapping({"", "/"})
-	public @ResponseBody ResponseEntity<List<Trainee>> getAll(){
-		List<Trainee> trainees = traineeService.getAll();
-		
-		return new ResponseEntity<>(trainees, HttpStatus.OK);	
-	
+		else 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);		
 	}
 }

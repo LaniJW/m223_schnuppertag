@@ -15,7 +15,6 @@ import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
 public class LocationDTO {
 
 	private Address address;
-	
 	private List<TrialDay> trialDays;
 
 	public LocationDTO() {

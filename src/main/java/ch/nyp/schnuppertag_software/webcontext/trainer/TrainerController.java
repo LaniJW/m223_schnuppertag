@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerDTO;
 import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerMapper;
+import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerWIDDTO;
+import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerWIDMapper;
 
 /**
  * 
  * @author Lani Wagner, Alexandra Girsberger
- * @since 2019-03-22
+ * @since 2019-03-27
  * 
  */
 
@@ -31,57 +33,62 @@ import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerMapper;
 public class TrainerController {
 	TrainerService trainerService;
 	TrainerMapper trainerMapper;
+	TrainerWIDMapper trainerwIdMapper;
 
 	@Autowired
-	public TrainerController(TrainerService trainerService, TrainerMapper trainerMapper) {
+	public TrainerController(TrainerService trainerService, TrainerMapper trainerMapper, TrainerWIDMapper trainerwIdMapper) {
 		this.trainerService = trainerService;
 		this.trainerMapper = trainerMapper;
+		this.trainerwIdMapper = trainerwIdMapper;
 	}
 	
 	@GetMapping("/{id}")
-	public @ResponseBody ResponseEntity<TrainerDTO> getById(@PathVariable Long id){
+	public @ResponseBody ResponseEntity<TrainerWIDDTO> getById(@PathVariable Long id){
 		Optional<Trainer> trainer = trainerService.getById(id);
 		
-		if(trainer.isPresent()) {
-			return new ResponseEntity<>(trainerMapper.toDTO(trainer.get()), HttpStatus.OK);	
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@PostMapping({"", "/"})
-	public @ResponseBody ResponseEntity<Trainer> create(@RequestBody Trainer trainer) {
-		trainerService.save(trainer);
-		
-		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/{id}")
-	public @ResponseBody ResponseEntity<Trainer> update(@RequestBody Trainer trainer, @PathVariable Long id) {
-		trainerService.updateById(trainer, id);
-		
-		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
+		if(trainer.isPresent()) 
+			return new ResponseEntity<>(trainerwIdMapper.toDTO(trainer.get()), HttpStatus.OK);	
+		else 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 	}
 	
 	@GetMapping({"", "/"})
-	public @ResponseBody ResponseEntity<List<Trainer>> getAll(){
+	public @ResponseBody ResponseEntity<List<TrainerDTO>> getAll(){
 		List<Trainer> trainers = trainerService.getAll();
 		
-		return new ResponseEntity<>(trainers, HttpStatus.OK);	
+		return new ResponseEntity<>(trainerMapper.toDTOs(trainers), HttpStatus.OK);	
+	}
+	
+	@GetMapping({"/all"})
+	public @ResponseBody ResponseEntity<List<TrainerWIDDTO>> getAllwId(){
+		List<Trainer> trainers = trainerService.getAll();
+		
+		return new ResponseEntity<>(trainerwIdMapper.toDTOs(trainers), HttpStatus.OK);
+	}
+	
+	@PostMapping({"", "/"})
+	public @ResponseBody ResponseEntity<TrainerDTO> create(@RequestBody Trainer trainer) {
+		trainerService.save(trainer);
+		
+		return new ResponseEntity<>(trainerMapper.toDTO(trainer), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/{id}")
+	public @ResponseBody ResponseEntity<TrainerWIDDTO> updateById(@RequestBody TrainerDTO trainer, @PathVariable Long id) {
+		trainerService.updateById(trainerMapper.fromDTO(trainer), id);
+		
+		return new ResponseEntity<>(trainerMapper.toDTO(trainer), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public @ResponseBody ResponseEntity<Trainer> deleteById(@PathVariable Long id) {
+	public @ResponseBody ResponseEntity<TrainerWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Trainer> trainer = trainerService.getById(id);
 		
 		if(trainer.isPresent()) {
 			trainerService.deleteById(id);
-			return new ResponseEntity<>(trainer.get(), HttpStatus.OK);	
+			return new ResponseEntity<>(trainerwIdMapper.toDTO(trainer.get()), HttpStatus.OK);	
 		}
-		else {
+		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
-	
 }
