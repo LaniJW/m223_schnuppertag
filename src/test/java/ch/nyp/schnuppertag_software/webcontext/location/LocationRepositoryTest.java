@@ -1,9 +1,6 @@
-package ch.nyp.schnuppertag_software.webcontext.address;
+package ch.nyp.schnuppertag_software.webcontext.location;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import ch.nyp.schnuppertag_software.webcontext.address.Address;
+import ch.nyp.schnuppertag_software.webcontext.address.AddressRepository;
 
 /**
  * 
@@ -24,15 +24,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @TestPropertySource("/application-test.properties")
 @DataJpaTest
-public class AddressRepositoryTest {
+public class LocationRepositoryTest {
 
 	@Autowired
-    private AddressRepository addressRepository;
+    private LocationRepository locationRepository;
 
     @Autowired
     private TestEntityManager entityManager;
 
-    private DataHolder<Address> dataHolder;
+    private DataHolder<Location> dataHolder;
     
     @Before
     public void setup() {
@@ -41,6 +41,6 @@ public class AddressRepositoryTest {
 
     @Test
     public void findAll_returnsAll() {
-       assertThat(addressRepository.findAll()).containsExactlyElementsOf(dataHolder.asList());
+       assertThat(locationRepository.findAll()).containsExactlyElementsOf(dataHolder.asList());
     }  
 }

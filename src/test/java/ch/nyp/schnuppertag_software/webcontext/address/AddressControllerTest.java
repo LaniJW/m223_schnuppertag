@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ch.nyp.schnuppertag_software.data.DataGenerators;
+import ch.nyp.schnuppertag_software.data.DataHolder;
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 
 /**
@@ -63,7 +65,7 @@ public class AddressControllerTest {
                 addressMapper.toDTOs(dataHolder.asList())
         );
 
-        mockMvc.perform(get("/", "s"))
+        mockMvc.perform(get("/", ""))
                 // .andDo(print()) prints out request/response info
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
