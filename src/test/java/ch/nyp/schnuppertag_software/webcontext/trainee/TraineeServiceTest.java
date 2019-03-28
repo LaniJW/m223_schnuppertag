@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.webcontext.specialization;
+package ch.nyp.schnuppertag_software.webcontext.trainee;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -26,29 +26,29 @@ import ch.nyp.schnuppertag_software.webcontext.address.DataHolder;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class SpecializationServiceClass {
+public class TraineeServiceTest {
 
 	@InjectMocks
-	private SpecializationService specializationService;
+	private TraineeService traineeService;
 
 	@Mock
-	private SpecializationRepository specializationRepository;
+	private AddressRepository traineeRepository;
 
-	private DataHolder<Specialization> dataHolder;
+	private DataHolder<Trainee> dataHolder;
 
 	@Before
 	public void setup() {
-		this.dataHolder = DataGenerators.forClass(Specialization.class).generate();
+		this.dataHolder = DataGenerators.forClass(Trainee.class).generate();
 	}
 
 	@Test
-	public void findById_idExists_returnsSpecialization() {
+	public void findById_idExists_returnsTrainee() {
 		// setup mock
-		var specialization = dataHolder.first();
-		when(specializationRepository.findById(specialization.getId())).thenReturn(Optional.of(specialization));
+		var trainee = dataHolder.first();
+		when(traineeRepository.findById(trainee.getId())).thenReturn(Optional.of(trainee));
 
 		// test service
-		assertThat(specializationService.findById(specialization.getId())).isPresent().contains(specialization);
+		assertThat(traineeService.findById(trainee.getId())).isPresent().contains(trainee);
 	}
 
 	@Test
@@ -56,6 +56,6 @@ public class SpecializationServiceClass {
 		// no mock setup required
 
 		// test service
-		assertThat(specializationService.getById(1312L)).isEmpty();
+		assertThat(traineeService.getById(1312L)).isEmpty();
 	}
 }
