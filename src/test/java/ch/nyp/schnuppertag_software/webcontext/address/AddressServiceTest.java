@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import ch.nyp.schnuppertag_software.data.DataGenerators;
+import ch.nyp.schnuppertag_software.data.DataHolder;
 
 /**
  * 
@@ -44,7 +45,7 @@ public class AddressServiceTest {
 		when(addressRepository.findById(address.getId())).thenReturn(Optional.of(address));
 
 		// test service
-		assertThat(addressService.findById(address.getId())).isPresent().contains(address);
+		assertThat(addressService.getById(address.getId())).isPresent().contains(address);
 	}
 
 	@Test
