@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTOMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,11 @@ public class AddressController {
 		this.addressMapper = addressMapper;
 		this.addresswIdDtoMapper = addresswIdDtoMapper;
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint returns the address with the given id.",
+			response = AddressWIDDTO.class
+	)
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
@@ -52,30 +57,50 @@ public class AddressController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+	@ApiOperation(
+			value = "This endpoint returns all addresses without the id.",
+			response = AddressDTO.class
+	)
 	@GetMapping({"", "/"})
 	public @ResponseBody ResponseEntity<List<AddressDTO>> getAll(){
 		List<Address> addresses = addressService.getAll();
 		return new ResponseEntity<>(addressMapper.toDTOs(addresses), HttpStatus.OK);
 	}
 
+	@ApiOperation(
+			value = "This endpoint returns all addresses with the id.",
+			response = AddressWIDDTO.class
+	)
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<AddressWIDDTO>> getAllwId(){
 		List<Address> addresses = addressService.getAll();
 		return new ResponseEntity<>(addresswIdDtoMapper.toDTOs(addresses), HttpStatus.OK);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint creates a new address with the request body and returns the created address.",
+			response = AddressDTO.class
+	)
 	@PostMapping({"", "/"})
 	public @ResponseBody ResponseEntity<AddressDTO> create(@RequestBody AddressDTO address) {
 		addressService.save(addressMapper.fromDTO(address));
 		return new ResponseEntity<>(address, HttpStatus.CREATED);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint updates an existing address with the request body and returns the updated address.",
+			response = AddressWIDDTO.class
+	)
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> updateById(@RequestBody AddressDTO address, @PathVariable Long id) {
 		addressService.updateById(addressMapper.fromDTO(address), id);
 		return new ResponseEntity<>(addresswIdDtoMapper.toDTO(address), HttpStatus.CREATED);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint deletes an existing address returns the deleted address.",
+			response = AddressWIDDTO.class
+	)
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Address> address = addressService.getById(id);
