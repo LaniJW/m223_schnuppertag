@@ -3,6 +3,10 @@ package ch.nyp.schnuppertag_software.webcontext.trialday;
 import java.util.List;
 import java.util.Optional;
 
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressDTO;
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
+import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerDTO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +46,11 @@ TrialDayWIDMapper trialDaywIdMapper;
 		this.trialDayMapper = trialDayMapper;
 		this.trialDaywIdMapper = trialDaywIdMapper;
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint returns the trial day with the given id.",
+			response = TrialDayWIDDTO.class
+	)
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrialDayWIDDTO> getById(@PathVariable Long id){
 		Optional<TrialDay> trialDay = trialDayService.getById(id);
@@ -52,7 +60,11 @@ TrialDayWIDMapper trialDaywIdMapper;
 		else 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint returns all trial days without the id.",
+			response = TrialDayDTO.class
+	)
 	@GetMapping({"", "/"})
 	public @ResponseBody ResponseEntity<List<TrialDayDTO>> getAll(){
 		List<TrialDay> trialDays = trialDayService.getAll();
@@ -60,28 +72,44 @@ TrialDayWIDMapper trialDaywIdMapper;
 		return new ResponseEntity<>(trialDayMapper.toDTOs(trialDays), HttpStatus.OK);	
 	
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint returns all trial days without the id.",
+			response = TrialDayDTO.class
+	)
 	@GetMapping({"/all"})
 	public @ResponseBody ResponseEntity<List<TrialDayWIDDTO>> getAllwId(){
 		List<TrialDay> trialDays = trialDayService.getAll();
 		
 		return new ResponseEntity<>(trialDaywIdMapper.toDTOs(trialDays), HttpStatus.OK);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint creates a new trial day with the request body and returns the created trial day.",
+			response = TrialDayDTO.class
+	)
 	@PostMapping({"", "/"})
 	public @ResponseBody ResponseEntity<TrialDayDTO> create(@RequestBody TrialDayDTO trialDay) {
 		trialDayService.save(trialDayMapper.fromDTO(trialDay));
 		
 		return new ResponseEntity<>(trialDay, HttpStatus.CREATED);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint updates an existing trial day with the request body and returns the updated trial day.",
+			response = TrialDayWIDDTO.class
+	)
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrialDayWIDDTO> updateById(@RequestBody TrialDayDTO trialDay, @PathVariable Long id) {
 		trialDayService.updateById(trialDayMapper.fromDTO(trialDay), id);
 		
 		return new ResponseEntity<>(trialDayMapper.toDTO(trialDay), HttpStatus.CREATED);
 	}
-	
+
+	@ApiOperation(
+			value = "This endpoint deletes an existing trail day returns the deleted trial day.",
+			response = TrialDayWIDDTO.class
+	)
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrialDayWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<TrialDay> trialDay = trialDayService.getById(id);
