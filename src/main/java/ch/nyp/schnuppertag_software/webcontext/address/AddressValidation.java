@@ -1,5 +1,6 @@
 package ch.nyp.schnuppertag_software.webcontext.address;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -11,8 +12,13 @@ import org.springframework.validation.Validator;
  *
  */
 
+@Component
 public class AddressValidation implements Validator
 {
+	public AddressValidation()
+	{
+	}
+
 	public boolean supports(Class clazz) {
 		return Address.class.equals(clazz);
 	}
