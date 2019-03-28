@@ -4,11 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
-<<<<<<< HEAD
-=======
-import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTOMapper;
 import io.swagger.annotations.ApiOperation;
->>>>>>> develop
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

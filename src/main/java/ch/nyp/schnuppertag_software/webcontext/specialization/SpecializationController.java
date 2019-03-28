@@ -7,6 +7,7 @@ import java.util.Optional;
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressDTO;
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
 import ch.nyp.schnuppertag_software.webcontext.specialization.dto.SpecializationWIDDTO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
