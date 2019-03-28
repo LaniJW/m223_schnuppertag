@@ -2,6 +2,7 @@ package ch.nyp.schnuppertag_software.webcontext.address;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import ch.nyp.schnuppertag_software.data.DataGenerators;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ch.nyp.schnuppertag_software.data.DataHolder;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -35,7 +39,11 @@ public class AddressRepositoryTest {
     
     @Before
     public void setup() {
-    		   
+        var addresses = DataGenerators.forClass(Address.class).generate()
+                .asList().stream()
+                .peek(a -> a.setId(null))
+                .peek(entityManager::persist)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Test
