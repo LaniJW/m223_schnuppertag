@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import ch.nyp.schnuppertag_software.data.DataGenerators;
+
 /**
  * 
  * @author Alexandra Girsberger
@@ -22,38 +24,34 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AddressServiceTest {
 
-	 @InjectMocks
-	    private AddressService addressService;
+	@InjectMocks
+	private AddressService addressService;
 
-	    @Mock
-	    private AddressRepository addressRepository;
+	@Mock
+	private AddressRepository addressRepository;
 
-	    private DataHolder<Address> dataHolder;
-	    
-	    @Before
-	    public void setup() {
-	        this.dataHolder = DataGenerators.forClass(Address.class).generate();
-	    }
-	    
-	    @Test
-	    public void findById_idExists_returnsAddress() {
-	        // setup mock
-	        var address = dataHolder.first();
-	        when(addressRepository.findById(address.getId()))
-	                .thenReturn(Optional.of(address));
+	private DataHolder<Address> dataHolder;
 
-	        // test service
-	        assertThat(addressService.findById(address.getId()))
-	                .isPresent()
-	                .contains(address);
-	    }
+	@Before
+	public void setup() {
+		this.dataHolder = DataGenerators.forClass(Address.class).generate();
+	}
 
-	    @Test
-	    public void findById_idDoesNotExist_returnsAddress() {
-	        // no mock setup required
+	@Test
+	public void findById_idExists_returnsAddress() {
+		// setup mock
+		var address = dataHolder.first();
+		when(addressRepository.findById(address.getId())).thenReturn(Optional.of(address));
 
-	        // test service
-	        assertThat(addressService.getById(1312L))
-	                .isEmpty();
-	    }
+		// test service
+		assertThat(addressService.findById(address.getId())).isPresent().contains(address);
+	}
+
+	@Test
+	public void findById_idDoesNotExist_returnsAddress() {
+		// no mock setup required
+
+		// test service
+		assertThat(addressService.getById(1312L)).isEmpty();
+	}
 }
