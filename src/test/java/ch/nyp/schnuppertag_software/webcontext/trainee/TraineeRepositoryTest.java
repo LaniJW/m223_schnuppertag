@@ -1,4 +1,4 @@
-package ch.nyp.schnuppertag_software.webcontext.specialization;
+package ch.nyp.schnuppertag_software.webcontext.trainee;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
 import ch.nyp.schnuppertag_software.webcontext.address.AddressRepository;
+import ch.nyp.schnuppertag_software.webcontext.address.DataHolder;
 
 /**
  * 
@@ -24,15 +25,15 @@ import ch.nyp.schnuppertag_software.webcontext.address.AddressRepository;
 @RunWith(SpringRunner.class)
 @TestPropertySource("/application-test.properties")
 @DataJpaTest
-public class SpecializationRepositoryClass {
-
+public class TraineeRepositoryTest {
+	
 	@Autowired
-    private SpecializationRepository specializationRepository;
+    private TraineeRepository traineeRepository;
 
     @Autowired
     private TestEntityManager entityManager;
 
-    private DataHolder<Specialization> dataHolder;
+    private DataHolder<Trainee> dataHolder;
     
     @Before
     public void setup() {
@@ -41,6 +42,7 @@ public class SpecializationRepositoryClass {
 
     @Test
     public void findAll_returnsAll() {
-       assertThat(specializationRepository.findAll()).containsExactlyElementsOf(dataHolder.asList());
+       assertThat(traineeRepository.findAll()).containsExactlyElementsOf(dataHolder.asList());
     }  
+
 }
