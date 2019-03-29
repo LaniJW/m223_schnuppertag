@@ -13,6 +13,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ch.nyp.schnuppertag_software.data.DataHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -39,11 +40,10 @@ public class AddressRepositoryTest {
     
     @Before
     public void setup() {
-        var addresses = DataGenerators.forClass(Address.class).generate()
-                .asList().stream()
+        dataHolder = DataGenerators.forClass(Address.class).generate();
+        dataHolder.asList().stream()
                 .peek(a -> a.setId(null))
-                .peek(entityManager::persist)
-                .collect(Collectors.toCollection(ArrayList::new));
+                .forEach(entityManager::persist);
     }
 
     @Test

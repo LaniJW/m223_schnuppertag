@@ -31,7 +31,7 @@ import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = AddressController.class, includeFilters = {
-        @Filter(classes = {AddressValidation.class, AddressMapper.class},
+        @Filter(classes = {AddressMapper.class},
                 type = FilterType.ASSIGNABLE_TYPE)
 })
 public class AddressControllerTest {
@@ -65,7 +65,7 @@ public class AddressControllerTest {
                 addressMapper.toDTOs(dataHolder.asList())
         );
 
-        mockMvc.perform(get("/", ""))
+        mockMvc.perform(get("/addresses"))
                 // .andDo(print()) prints out request/response info
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
