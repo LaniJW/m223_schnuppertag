@@ -61,15 +61,11 @@ public class AddressIntegrationTest {
 	    @Before
 	    public void setup() {
 	
-	        var addresses = DataGenerators.forClass(Address.class).generate()
-	                .asList().stream()
-	                .peek(a -> a.setId(null))
-	                .peek(entityManager::persist)
-	                .collect(Collectors.toCollection(ArrayList::new));
-	        
+	        dataHolder = DataGenerators.forClass(Address.class).generate();
 	        dataHolder.asList().stream()
-	                .peek(u -> u.setId(null))
+	                .peek(a -> a.setId(null))
 	                .forEach(entityManager::persist);
+
 	    }
 
 	    @Test
@@ -78,7 +74,7 @@ public class AddressIntegrationTest {
 	                addressMapper.toDTOs(dataHolder.asList())
 	        );
 
-	        mockMvc.perform(get("/", ""))
+	        mockMvc.perform(get("/addresses"))
 	                .andDo(print())
 	                .andExpect(status().isOk())
 	                .andExpect(content().json(expectedJson));
