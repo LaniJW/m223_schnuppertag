@@ -1,6 +1,10 @@
 package ch.nyp.schnuppertag_software.webcontext.role;
 
+import java.util.List;
+
 import javax.persistence.*;
+
+import ch.nyp.schnuppertag_software.webcontext.authorization.Authorization;
 
 /**
  *
@@ -21,14 +25,17 @@ public class Role
 	@Column(name ="name")
 	private String name;
 
-	//TODO: Add reference to Authorization and its setters and getters.
+	@ManyToMany(targetEntity = Authorization.class)
+	@Column(name = "authorization_fk")
+	private List<Authorization> authorizations;
 
 	public Role(){}
 
-	public Role(Long id, String name)
+	public Role(Long id, String name, List<Authorization> authorizations)
 	{
 		this.id = id;
 		this.name = name;
+		this.authorizations = authorizations;
 	}
 
 	public Role(String name)
@@ -55,4 +62,13 @@ public class Role
 	{
 		this.name = name;
 	}
+
+	public List<Authorization> getAuthorizations() {
+		return authorizations;
+	}
+
+	public void setAuthorizations(List<Authorization> authorizations) {
+		this.authorizations = authorizations;
+	}
+	
 }

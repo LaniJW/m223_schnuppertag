@@ -1,7 +1,5 @@
 package ch.nyp.schnuppertag_software.webcontext.authorization.dto;
 
-import ch.nyp.schnuppertag_software.webcontext.authorization.Access;
-
 /**
  * 
  * @author Alexandra Girsberger
