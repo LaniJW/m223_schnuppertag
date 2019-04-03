@@ -23,22 +23,22 @@ public class Authorization {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "access")
-	private String access;
+	@Column(name = "name")
+	private String name;
 	
 	public Authorization() {
 		super();
 	}
 
-	public Authorization(Long id, String access) {
+	public Authorization(Long id, String name) {
 		super();
 		this.id = id;
-		this.access = access;
+		this.name = name;
 	}
 
-	public Authorization(String access) {
+	public Authorization(String name) {
 		super();
-		this.access = access;
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -49,12 +49,12 @@ public class Authorization {
 		this.id = id;
 	}
 
-	public String getAccess() {
-		return access;
+	public String getName() {
+		return name;
 	}
 
-	public void setAccess(String access) {
-		this.access = access;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
