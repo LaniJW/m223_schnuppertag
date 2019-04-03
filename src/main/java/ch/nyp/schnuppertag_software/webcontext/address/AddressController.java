@@ -45,8 +45,8 @@ public class AddressController {
 			value = "This endpoint returns the address with the given id.",
 			response = AddressWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthorization('')")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> getById(@PathVariable Long id){
 		Optional<Address> address = addressService.getById(id);
 
@@ -60,6 +60,7 @@ public class AddressController {
 			value = "This endpoint returns all addresses without the id.",
 			response = AddressDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping({"", "/"})
 	public @ResponseBody ResponseEntity<List<AddressDTO>> getAll(){
 		List<Address> addresses = addressService.getAll();
@@ -70,6 +71,7 @@ public class AddressController {
 			value = "This endpoint returns all addresses with the id.",
 			response = AddressWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<AddressWIDDTO>> getAllwId(){
 		List<Address> addresses = addressService.getAll();
@@ -80,6 +82,7 @@ public class AddressController {
 			value = "This endpoint creates a new address with the request body and returns the created address.",
 			response = AddressDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PostMapping({"", "/"})
 	public @ResponseBody ResponseEntity<AddressDTO> create(@RequestBody AddressDTO address) {
 		addressService.save(addressMapper.fromDTO(address));
@@ -90,6 +93,7 @@ public class AddressController {
 			value = "This endpoint updates an existing address with the request body and returns the updated address.",
 			response = AddressWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> updateById(@RequestBody AddressDTO address, @PathVariable Long id) {
 		addressService.updateById(addressMapper.fromDTO(address), id);
@@ -100,6 +104,7 @@ public class AddressController {
 			value = "This endpoint deletes an existing address returns the deleted address.",
 			response = AddressWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<AddressWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Address> address = addressService.getById(id);
