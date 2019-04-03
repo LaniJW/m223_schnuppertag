@@ -18,7 +18,7 @@ import ch.nyp.schnuppertag_software.webcontext.trialday.TrialDay;
 /**
  * 
  * @author Alexandra Girsberger
- * @author 2019-03-20
+ * @since 2019-03-20
  *
  */
 
