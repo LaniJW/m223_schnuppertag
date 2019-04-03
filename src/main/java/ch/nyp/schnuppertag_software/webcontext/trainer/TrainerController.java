@@ -3,13 +3,11 @@ package ch.nyp.schnuppertag_software.webcontext.trainer;
 import java.util.List;
 import java.util.Optional;
 
-import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressDTO;
-import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
-import ch.nyp.schnuppertag_software.webcontext.location.dto.LocationWIDDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +25,7 @@ import ch.nyp.schnuppertag_software.webcontext.trainer.dto.TrainerWIDDTO;
 /**
  * 
  * @author Lani Wagner, Alexandra Girsberger
- * @since 2019-03-27
+ * @since 2019-04-03
  * 
  */
 
@@ -47,6 +45,7 @@ public class TrainerController {
 			value = "This endpoint returns the trainer with the given id.",
 			response = TrainerWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrainerWIDDTO> getById(@PathVariable Long id){
 		Optional<Trainer> trainer = trainerService.getById(id);
@@ -61,6 +60,7 @@ public class TrainerController {
 			value = "This endpoint returns all trainers without the id.",
 			response = TrainerDTO.class
 	)
+	@PreAuthorize("hasAuthorization('employee')")
 	@GetMapping({"", "/"})
 	public @ResponseBody ResponseEntity<List<TrainerDTO>> getAll(){
 		List<Trainer> trainers = trainerService.getAll();
@@ -72,6 +72,7 @@ public class TrainerController {
 			value = "This endpoint returns all trainers without the id.",
 			response = TrainerDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping({"/all"})
 	public @ResponseBody ResponseEntity<List<TrainerWIDDTO>> getAllwId(){
 		List<Trainer> trainers = trainerService.getAll();
@@ -83,6 +84,7 @@ public class TrainerController {
 			value = "This endpoint creates a new trainer with the request body and returns the created trainer.",
 			response = TrainerDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PostMapping({"", "/"})
 	public @ResponseBody ResponseEntity<TrainerDTO> create(@RequestBody Trainer trainer) {
 		trainerService.save(trainer);
@@ -94,6 +96,7 @@ public class TrainerController {
 			value = "This endpoint updates an existing trainer with the request body and returns the updated trainer.",
 			response = TrainerWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrainerWIDDTO> updateById(@RequestBody TrainerDTO trainer, @PathVariable Long id) {
 		trainerService.updateById(trainerMapper.fromDTO(trainer), id);
@@ -105,6 +108,7 @@ public class TrainerController {
 			value = "This endpoint deletes an existing trainer returns the deleted trainer.",
 			response = TrainerWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<TrainerWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Trainer> trainer = trainerService.getById(id);
