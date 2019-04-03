@@ -10,13 +10,13 @@ package ch.nyp.schnuppertag_software.webcontext.authorization.dto;
 public class AuthorizationWIDDTO {
 
 	private Long id;
-	private Access access;
+	private String access;
 	
 	public AuthorizationWIDDTO() {
 		super();
 	}
 
-	public AuthorizationWIDDTO(Long id, Access access) {
+	public AuthorizationWIDDTO(Long id, String access) {
 		super();
 		this.id = id;
 		this.access = access;
@@ -30,11 +30,11 @@ public class AuthorizationWIDDTO {
 		this.id = id;
 	}
 
-	public Access getAccess() {
+	public String getAccess() {
 		return access;
 	}
 
-	public void setAccess(Access access) {
+	public void setAccess(String access) {
 		this.access = access;
 	}
 	

@@ -9,22 +9,22 @@ package ch.nyp.schnuppertag_software.webcontext.authorization.dto;
 
 public class AuthorizationDTO {
 	
-	private Access access;
+	private String access;
 
 	public AuthorizationDTO() {
 		super();
 	}
 
-	public AuthorizationDTO(Access access) {
+	public AuthorizationDTO(String access) {
 		super();
 		this.access = access;
 	}
 
-	public Access getAccess() {
+	public String getAccess() {
 		return access;
 	}
 	
-	public void setAccess(Access access) {
+	public void setAccess(String access) {
 		this.access = access;
 	}
 
