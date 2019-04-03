@@ -5,22 +5,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class UserServiceImpl implements UserService
-{
+public class UserServiceImpl extends UserService {
+	
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	/**
-	 * @param repository
-	 */
 	@Autowired
-	UserServiceImpl(UserRepository repository, BCryptPasswordEncoder bCryptPasswordEncoder)
+	UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
 	{
+		super(userRepository);
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
 	{
 		User user = findByUsername(username);
@@ -32,20 +27,14 @@ public class UserServiceImpl implements UserService
 		return new UserDetailsImpl(user);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public User findByUsername(String name)
 	{
-		User user = ((UserRepository) repository).findByUsername(name);
+		User user = ((UserRepository) userRepository).findByUsername(name);
 		return user;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public void deleteByUsername(String name)
 	{
-		((UserRepository) repository).deleteByUsername(name);
+		((UserRepository) userRepository).deleteByUsername(name);
 	}
 }

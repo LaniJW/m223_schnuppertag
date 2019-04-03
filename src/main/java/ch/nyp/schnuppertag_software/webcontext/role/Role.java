@@ -1,5 +1,7 @@
 package ch.nyp.schnuppertag_software.webcontext.role;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import ch.nyp.schnuppertag_software.webcontext.authorization.Authorization;
@@ -25,15 +27,15 @@ public class Role
 
 	@ManyToMany(targetEntity = Authorization.class)
 	@Column(name = "authorization_fk")
-	private Authorization authorization;
+	private List<Authorization> authorizations;
 
 	public Role(){}
 
-	public Role(Long id, String name, Authorization authorization)
+	public Role(Long id, String name, List<Authorization> authorizations)
 	{
 		this.id = id;
 		this.name = name;
-		this.authorization = authorization;
+		this.authorizations = authorizations;
 	}
 
 	public Role(String name)
@@ -61,12 +63,12 @@ public class Role
 		this.name = name;
 	}
 
-	public Authorization getAuthorization() {
-		return authorization;
+	public List<Authorization> getAuthorizations() {
+		return authorizations;
 	}
 
-	public void setAuthorization(Authorization authorization) {
-		this.authorization = authorization;
+	public void setAuthorizations(List<Authorization> authorizations) {
+		this.authorizations = authorizations;
 	}
 	
 }
