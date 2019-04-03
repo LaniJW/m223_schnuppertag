@@ -109,7 +109,7 @@ public class User {
 		this.credentialsExpirationDate = credentialsExpirationDate;
 	}
 
-	public Boolean getLocked() {
+	public Boolean isLocked() {
 		return locked;
 	}
 
@@ -117,7 +117,7 @@ public class User {
 		this.locked = locked;
 	}
 
-	public Boolean getEnabled() {
+	public Boolean isEnabled() {
 		return enabled;
 	}
 

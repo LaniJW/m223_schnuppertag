@@ -24,19 +24,19 @@ public class Authorization {
 	private Long id;
 	
 	@Column(name = "access")
-	private Access access;
+	private String access;
 	
 	public Authorization() {
 		super();
 	}
 
-	public Authorization(Long id, Access access) {
+	public Authorization(Long id, String access) {
 		super();
 		this.id = id;
 		this.access = access;
 	}
 
-	public Authorization(Access access) {
+	public Authorization(String access) {
 		super();
 		this.access = access;
 	}
@@ -49,11 +49,11 @@ public class Authorization {
 		this.id = id;
 	}
 
-	public Access getAccess() {
+	public String getAccess() {
 		return access;
 	}
 
-	public void setAccess(Access access) {
+	public void setAccess(String access) {
 		this.access = access;
 	}
 	
