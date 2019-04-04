@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,7 @@ public class LocationController {
 			value = "This endpoint returns the location with the given id.",
 			response = LocationWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<LocationWIDDTO> getById(@PathVariable Long id){
 		Optional<Location> location = locationService.getById(id);
@@ -60,6 +62,7 @@ public class LocationController {
 			value = "This endpoint returns all locations without the id.",
 			response = LocationDTO.class
 	)
+	@PreAuthorize("hasAuthorization('guest')")
 	@GetMapping({"", "/"})
 	public @ResponseBody ResponseEntity<List<LocationDTO>> getAll(){
 		List<Location> locations = locationService.getAll();
@@ -70,6 +73,7 @@ public class LocationController {
 			value = "This endpoint returns all locations without the id.",
 			response = LocationDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<LocationWIDDTO>> getAllwId(){
 		List<Location> locations = locationService.getAll();
@@ -80,6 +84,7 @@ public class LocationController {
 			value = "This endpoint creates a new location with the request body and returns the location address.",
 			response = LocationDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PostMapping({"", "/"})
 	public @ResponseBody ResponseEntity<LocationDTO> create(@RequestBody LocationDTO location) {
 		locationService.save(locationMapper.fromDTO(location));
@@ -90,6 +95,7 @@ public class LocationController {
 			value = "This endpoint updates an existing location with the request body and returns the updated location.",
 			response = LocationWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<LocationWIDDTO> updateById(@RequestBody LocationDTO location, @PathVariable Long id) {
 		locationService.updateById(locationMapper.fromDTO(location), id);
@@ -100,6 +106,7 @@ public class LocationController {
 			value = "This endpoint deletes an existing location returns the deleted location.",
 			response = LocationWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<LocationWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Location> location = locationService.getById(id);

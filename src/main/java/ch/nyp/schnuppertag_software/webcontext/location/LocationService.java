@@ -24,6 +24,7 @@ public class LocationService {
 	public LocationService(LocationRepository locationRepository) {
 		this.locationRepository = locationRepository;
 	}
+	
 	public Optional<Location> getById(Long id) {
 		Optional<Location> location = locationRepository.findById(id);
 		return location;
