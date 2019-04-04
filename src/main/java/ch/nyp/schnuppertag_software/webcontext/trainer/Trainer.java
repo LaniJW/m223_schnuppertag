@@ -12,11 +12,12 @@ import javax.persistence.Table;
 
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
 import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
+import ch.nyp.schnuppertag_software.webcontext.user.User;
 
 /**
  * 
  * @author Lani Wagner
- * @since 2019-03-20
+ * @since 2019-04-04
  *
  */
 
@@ -42,21 +43,27 @@ public class Trainer {
 	@Column(name = "email")
 	private String email;
 
-	public Trainer(Long id, Specialization specialization, Address address, String phoneNumber, String email) {
+	@ManyToOne
+	@JoinColumn(name = "user_fk")
+	private User user;
+
+	public Trainer(Long id, Specialization specialization, Address address, String phoneNumber, String email, User user) {
 		super();
 		this.id = id;
 		this.specialization = specialization;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.user = user;
 	}
 
-	public Trainer(Specialization specialization, Address address, String phoneNumber, String email) {
+	public Trainer(Specialization specialization, Address address, String phoneNumber, String email, User user) {
 		super();
 		this.specialization = specialization;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.user = user;
 	}
 
 	public Trainer() {
@@ -100,5 +107,15 @@ public class Trainer {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public User getUser()
+	{
+		return user;
+	}
+
+	public void setUser(User user)
+	{
+		this.user = user;
 	}
 }

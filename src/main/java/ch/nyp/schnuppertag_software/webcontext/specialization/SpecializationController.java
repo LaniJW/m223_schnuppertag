@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +48,7 @@ public class SpecializationController {
 			value = "This endpoint returns the specialization with the given id.",
 			response = SpecializationWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/{id}")
 	public @ResponseBody ResponseEntity<SpecializationWIDDTO> getById(@PathVariable Long id){
 		Optional<Specialization> specialization = specializationService.getById(id);
@@ -61,6 +63,7 @@ public class SpecializationController {
 			value = "This endpoint returns all specializations without the id.",
 			response = SpecializationDTO.class
 	)
+	@PreAuthorize("hasAuthorization('employee')")
 	@GetMapping({"", "/"})
 	public @ResponseBody ResponseEntity<List<SpecializationDTO>> getAll(){
 		List<Specialization> specializations = specializationService.getAll();
@@ -71,6 +74,7 @@ public class SpecializationController {
 			value = "This endpoint returns all specializations without the id.",
 			response = SpecializationDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@GetMapping("/all")
 	public @ResponseBody ResponseEntity<List<SpecializationWIDDTO>> getAllwId(){
 		List<Specialization> specializations = specializationService.getAll();
@@ -81,6 +85,7 @@ public class SpecializationController {
 			value = "This endpoint creates a new specialization with the request body and returns the created specialization.",
 			response = SpecializationDTO.class
 	)
+	@PreAuthorize("hasAuthorization('guest')")
 	@PostMapping({"", "/"})
 	public @ResponseBody ResponseEntity<SpecializationDTO> create(@RequestBody SpecializationDTO specialization) {
 		specializationService.save(specializationMapper.fromDTO(specialization));
@@ -91,6 +96,7 @@ public class SpecializationController {
 			value = "This endpoint updates an existing specialization with the request body and returns the updated specialization.",
 			response = SpecializationWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@PutMapping("/{id}")
 	public @ResponseBody ResponseEntity<SpecializationWIDDTO> update(@RequestBody SpecializationDTO specialization, @PathVariable Long id) {
 		specializationService.updateById(specializationMapper.fromDTO(specialization), id);
@@ -101,6 +107,7 @@ public class SpecializationController {
 			value = "This endpoint deletes an existing specialization returns the deleted specialization.",
 			response = SpecializationWIDDTO.class
 	)
+	@PreAuthorize("hasAuthorization('admin')")
 	@DeleteMapping("/{id}")
 	public @ResponseBody ResponseEntity<SpecializationWIDDTO> deleteById(@PathVariable Long id) {
 		Optional<Specialization> specialization = specializationService.getById(id);
