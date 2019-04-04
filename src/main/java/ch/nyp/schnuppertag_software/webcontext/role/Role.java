@@ -25,7 +25,7 @@ public class Role
 	@Column(name ="name")
 	private String name;
 
-	@ManyToMany(targetEntity = Authorization.class)
+	@ManyToMany(targetEntity = Authorization.class, fetch = FetchType.EAGER)
 	@Column(name = "authorization_fk")
 	private List<Authorization> authorizations;
 
@@ -34,6 +34,12 @@ public class Role
 	public Role(Long id, String name, List<Authorization> authorizations)
 	{
 		this.id = id;
+		this.name = name;
+		this.authorizations = authorizations;
+	}
+
+	public Role(String name, List<Authorization> authorizations)
+	{
 		this.name = name;
 		this.authorizations = authorizations;
 	}

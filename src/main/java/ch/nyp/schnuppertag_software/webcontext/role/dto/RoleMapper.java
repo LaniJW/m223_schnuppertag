@@ -1,6 +1,9 @@
 package ch.nyp.schnuppertag_software.webcontext.role.dto;
 
 import ch.nyp.schnuppertag_software.webcontext.role.Role;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+
 import java.util.List;
 
 /**
@@ -9,7 +12,7 @@ import java.util.List;
  * @since 2019-04-03
  *
  */
-
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RoleMapper
 {
 	RoleDTO toDTO(Role role);

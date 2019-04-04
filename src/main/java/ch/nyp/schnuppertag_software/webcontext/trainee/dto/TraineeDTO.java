@@ -1,11 +1,12 @@
 package ch.nyp.schnuppertag_software.webcontext.trainee.dto;
 
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
+import ch.nyp.schnuppertag_software.webcontext.user.User;
 
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-03-21
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-04-04
  *
  */
 
@@ -19,16 +20,19 @@ public class TraineeDTO {
 
 	private String email;
 
+	private User user;
+
 	public TraineeDTO() {
 		super();
 	}
 
-	public TraineeDTO(Address address, Integer age, String phoneNumber, String email) {
+	public TraineeDTO(Address address, Integer age, String phoneNumber, String email, User user) {
 		super();
 		this.address = address;
 		this.age = age;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.user = user;
 	}
 
 	public Address getAddress() {
@@ -62,5 +66,14 @@ public class TraineeDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public User getUser()
+	{
+		return user;
+	}
+
+	public void setUser(User user)
+	{
+		this.user = user;
+	}
 }

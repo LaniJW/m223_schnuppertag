@@ -3,6 +3,7 @@ package ch.nyp.schnuppertag_software.webcontext.address;
 import java.util.List;
 import java.util.Optional;
 
+import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressWIDDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressDTO;
-import ch.nyp.schnuppertag_software.webcontext.address.dto.AddressMapper;
 
 /**
  * 

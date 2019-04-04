@@ -3,15 +3,7 @@ package ch.nyp.schnuppertag_software.webcontext.user;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 
@@ -20,17 +12,17 @@ import ch.nyp.schnuppertag_software.webcontext.role.Role;
 
 /**
  * 
- * @author Alexandra Girsberger
- * @since 2019-04-03
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-04-04
  *
  */
 
 @Entity
 @Table(name = "users")
 public class User {
-	
-	@Column(name = "id")
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "username")
@@ -124,5 +116,19 @@ public class User {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-	
+
+	public User(String username, String password, Set<Role> roles, LocalDate accountExpirationDate, LocalDate credentialsExpirationDate, Boolean locked, Boolean enabled)
+	{
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
+		this.accountExpirationDate = accountExpirationDate;
+		this.credentialsExpirationDate = credentialsExpirationDate;
+		this.locked = locked;
+		this.enabled = enabled;
+	}
+
+	public User()
+	{
+	}
 }

@@ -2,11 +2,12 @@ package ch.nyp.schnuppertag_software.webcontext.trainer.dto;
 
 import ch.nyp.schnuppertag_software.webcontext.address.Address;
 import ch.nyp.schnuppertag_software.webcontext.specialization.Specialization;
+import ch.nyp.schnuppertag_software.webcontext.user.User;
 
 /**
- * 
- * @author Alexandra Girsberger
- * @since 2019-03-27
+ *
+ * @author Alexandra Girsberger, Lani Wagner
+ * @since 2019-04-04
  *
  */
 
@@ -22,17 +23,20 @@ public class TrainerWIDDTO {
 	
 	private String email;
 
+	private User user;
+
 	public TrainerWIDDTO() {
 		super();
 	}
 
-	public TrainerWIDDTO(Long id, Address address, Specialization specialization, String phoneNumber, String email) {
+	public TrainerWIDDTO(Long id, Address address, Specialization specialization, String phoneNumber, String email, User user) {
 		super();
 		this.id = id;
 		this.address = address;
 		this.specialization = specialization;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.user = user;
 	}
 	
 	public Long getId() {
@@ -74,5 +78,14 @@ public class TrainerWIDDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public User getUser()
+	{
+		return user;
+	}
+
+	public void setUser(User user)
+	{
+		this.user = user;
+	}
 }
